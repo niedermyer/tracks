@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+require 'set'
+require 'sshkit'
+require 'sshkit/dsl'
+include SSHKit::DSL
+SSHKit.config.output_verbosity = Logger::DEBUG
+
+# All possible hosts that we could deploy to
+HOSTS_FILE = 'config/deploy/hosts.txt'
+HOSTS = File.readlines(HOSTS_FILE).select { |s| s =~ /\w/ }.map { |s| "deploy@#{s.strip}" }
+
+USAGE = "Usage: bin/deployed keyword [keyword] ..."
+
+# Organize the hosts by keywords
+keywords = Hash.new { |k,v| k[v] = [] }
+HOSTS.each do |host|
+  host =~ /^deploy@([\w-]+)\./
+  [$1].each do |keyword|
+    keywords[keyword].push(host)
+  end
+end
+
+# Generate the set of hosts to deploy to based on the given keywords
+if ARGV.empty?
+  hosts = HOSTS
+else
+  hosts = ARGV.map { |arg| Set.new(keywords[arg]) }.reduce(:&)
+  if hosts.empty?
+    puts "No hosts matched the keywords #{ARGV.inspect}"
+    exit 1
+  end
+end
+
+# Print what release each matching machine is on
+on hosts do |host|
+  execute "cat /var/www/sites/production.activity-log.niedermyer.net/current/RELEASE"
+end

@@ -55,6 +55,11 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring-commands-rspec'
 
+  # Gems for the bin/deploy script:
+  gem 'sshkit'      # parallel ssh
+  gem 'versionomy'  # sort version numbers
+  gem 'highline'    # prompt user for input
+  gem 'colored'     # colored terminal output
 end
 
 group :test do

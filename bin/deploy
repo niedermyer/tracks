@@ -1,0 +1,73 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'set'
+require 'highline'
+require 'versionomy'
+require 'sshkit'
+require 'sshkit/dsl'
+include SSHKit::DSL
+SSHKit.config.output_verbosity = Logger::DEBUG
+
+# All possible hosts that we could deploy to
+HOSTS_FILE = 'config/deploy/hosts.txt'
+HOSTS = File.readlines(HOSTS_FILE).select { |s| s =~ /\w/ }.map { |s| "deploy@#{s.strip}" }
+
+USAGE = "Usage: bin/deploy [-t TAG] [-q|-s] keyword [keyword] ..."
+
+tag = nil
+OptionParser.new do |opts|
+  opts.banner = USAGE
+  opts.on("-t", "--tag TAG", "Specify the tag/branch/sha to deploy") do |arg|
+    tag = arg
+  end
+  opts.on("-q", "--quiet", "Don't print detailed progress") do
+    SSHKit.config.output_verbosity = Logger::INFO
+  end
+  opts.on("-s", "--silent", "Don't print any output") do
+    SSHKit.config.output_verbosity = Logger::WARN
+  end
+end.parse!
+
+if ARGV.length == 0
+  puts USAGE
+  exit 1
+end
+
+# Organize the hosts by keywords
+keywords = Hash.new { |k,v| k[v] = [] }
+HOSTS.each do |host|
+  host =~ /^deploy@([\w-]+)\./
+  [$1].each do |keyword|
+    keywords[keyword].push(host)
+  end
+end
+
+# Generate the set of hosts to deploy to based on the given keywords
+if ARGV.empty?
+  hosts = HOSTS
+else
+  hosts = ARGV.map { |arg| Set.new(keywords[arg]) }.reduce(:&)
+  if hosts.empty?
+    puts "No hosts matched the keywords #{ARGV.inspect}"
+    exit 1
+  end
+end
+puts "\nDeploying to:"
+hosts.sort.each do |host| 
+  puts "  #{host}"
+end
+puts
+
+# Guess what tag/release we should deploy
+unless tag
+  version_tags = `git tag`.split.select { |s| s =~ /\d\.\d/ }
+  latest_version = version_tags.map { |s| Versionomy.parse(s) }.sort.last.to_s
+  tag = HighLine.new.ask("Which tag/branch/commit? ") { |q| q.default = latest_version }
+  puts
+end
+
+# :shipit:
+on hosts do |host|
+  execute "/var/www/sites/production.activity-log.niedermyer.net/bin/deploy", tag
+end
