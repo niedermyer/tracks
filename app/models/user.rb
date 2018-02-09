@@ -5,7 +5,6 @@ class User < ApplicationRecord
          :rememberable,
          :trackable,
          :validatable,
-         :confirmable,
          :lockable
 
   validates :first_name,

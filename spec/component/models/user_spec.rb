@@ -20,16 +20,11 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column(:last_sign_in_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:current_sign_in_ip).of_type(:inet) }
     it { is_expected.to have_db_column(:last_sign_in_ip).of_type(:inet) }
-    it { is_expected.to have_db_column(:confirmation_token).of_type(:string) }
-    it { is_expected.to have_db_column(:confirmed_at).of_type(:datetime) }
-    it { is_expected.to have_db_column(:confirmation_sent_at).of_type(:datetime) }
-    it { is_expected.to have_db_column(:unconfirmed_email).of_type(:string) }
     it { is_expected.to have_db_column(:failed_attempts).of_type(:integer).with_options(null: false, default: 0) }
     it { is_expected.to have_db_column(:locked_at).of_type(:datetime) }
 
     it { is_expected.to have_db_index(:email).unique(true) }
     it { is_expected.to have_db_index(:reset_password_token).unique(true) }
-    it { is_expected.to have_db_index(:confirmation_token).unique(true) }
   end
 
   describe 'validations' do
