@@ -10,3 +10,16 @@ development:
     port: 587
     authentication: plain
     enable_starttls_auto: true
+
+test:
+  url_options:
+    protocol: http
+    host: host.test
+  settings:
+    user_name: not-used-in-test
+    password: not-used-in-test
+    domain: not-used-in-test
+    address: not-used-in-test
+    port: not-used-in-test
+    authentication: not-used-in-test
+    enable_starttls_auto: not-used-in-test
