@@ -55,7 +55,12 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "activity-log_#{Rails.env}"
+
+  # Mail delivery
   config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = Rails.configuration.x.smtp.settings.symbolize_keys
+  config.action_mailer.default_url_options = Rails.configuration.x.smtp.url_options.symbolize_keys
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
