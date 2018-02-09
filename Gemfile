@@ -42,6 +42,9 @@ gem 'devise'
 # Twitter Bootstrap v4 sass integration
 gem 'bootstrap-sass'
 
+# Better form builder DSL
+gem 'simple_form'
+
 
 group :development, :test do
 
