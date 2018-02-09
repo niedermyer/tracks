@@ -1,0 +1,17 @@
+/*
+ * This is a declarations file that'll be imported into all other stylesheets.
+ *
+ * This file is used to define project-wide custom variables and Bootstrap
+ * variable overrides. We also use this file to define custom mixins. One of
+ * the most common uses is to define the base colors for the design and then
+ * redefine Bootstraps $brand-primary variable
+ *
+ * The @import method allows us to take advantage of variables and mixins.
+ *
+ */
+
+// Custom Theme Colors & Variables
+//$red-base: red;
+
+// Bootstrap Variable Overrides
+//$brand-primary: $red-base;
