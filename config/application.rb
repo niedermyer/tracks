@@ -9,6 +9,8 @@ Bundler.require(*Rails.groups)
 module ActivityLog
   class Application < Rails::Application
 
+    config.time_zone = 'Eastern Time (US & Canada)'
+
     # Load all of our configuration files into Rails.configuration.x.* objects.
     # These will be available throughout other initializers, so that we don't
     # have to manually read config files in several places.
