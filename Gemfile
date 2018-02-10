@@ -45,6 +45,9 @@ gem 'bootstrap-sass'
 # Better form builder DSL
 gem 'simple_form'
 
+# Structured seed data
+gem "seedbank"
+
 
 group :development, :test do
 
