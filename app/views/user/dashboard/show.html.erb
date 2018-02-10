@@ -1,5 +1,10 @@
-<h1><%= current_user.first_name %> <%= current_user.last_name %>'s Dashboard</h1>
+<h1>Dashboard</h1>
 
-<p>You're signed in with the email, <%= current_user.email %></p>
+<h2>Current User Information</h2>
+<p>
+  <strong>Full Name</strong>: <%= current_user.first_name %> <%= current_user.last_name %><br/>
+  <strong>Email</strong>: <%= current_user.email %><br/>
+  <strong>Administrator?</strong>: <%= current_user.administrator? %><br/>
+</p>
 
-<%= button_to 'Sign out', destroy_user_session_path, method: :delete %>
+<%= button_to 'Sign out', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
