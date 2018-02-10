@@ -38,4 +38,40 @@ RSpec.describe User, type: :model do
     it { is_expected.not_to allow_value("invalidemail").for(:email) }
   end
 
+  describe 'automatically generating #public_id on save' do
+    context 'on a new User' do
+      let(:user){ build :user }
+      it 'is set to a random string' do
+        expect { user.save! }.to change { user.public_id }.from(nil).to(an_instance_of(String))
+      end
+    end
+    context 'on an existing user without a public_id' do
+      let(:user){ create :user }
+      before { user.update_column(:public_id, nil) }
+      it 'sets the public_id' do
+        expect { user.save }.to change { user.public_id }.from(nil).to(an_instance_of(String))
+      end
+    end
+    context 'on an existing user with a public_id' do
+      let(:user){ create :user }
+      it 'sets the public_id' do
+        # Sanity Check
+        expect(user.reload.public_id).to be_present
+
+        expect { user.save }.not_to change { user.public_id }
+      end
+    end
+    describe 'uniqueness of the generated token' do
+      before do
+        existing_user = create :user
+        existing_user.update_column(:public_id, 'TAKEN')
+      end
+
+      it 'ensures that the public_id is unique' do
+        allow(SecureRandom).to receive(:hex).and_return('TAKEN', 'TAKEN', 'TAKEN', 'UNIQUE')
+        new_user = create :user
+        expect(new_user.reload.public_id).to eq 'UNIQUE'
+      end
+    end
+  end
 end
