@@ -23,8 +23,11 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column(:failed_attempts).of_type(:integer).with_options(null: false, default: 0) }
     it { is_expected.to have_db_column(:locked_at).of_type(:datetime) }
 
+    it { is_expected.to have_db_column(:public_id).of_type(:string) }
+
     it { is_expected.to have_db_index(:email).unique(true) }
     it { is_expected.to have_db_index(:reset_password_token).unique(true) }
+    it { is_expected.to have_db_index(:public_id).unique(true) }
   end
 
   describe 'validations' do
