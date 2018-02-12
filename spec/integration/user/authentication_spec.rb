@@ -4,7 +4,7 @@ feature 'Authentication for User', type: :feature do
   let!(:devise_model)        { create :user }
   let(:auth_required_path)   { user_dashboard_path }
   let(:after_login_path)     { user_dashboard_path }
-  let(:after_logout_path)    { new_user_session_path }
+  let(:after_logout_path)    { root_path }
   let(:login_screen_path)    { new_user_session_path }
   let(:forgot_password_path) { new_user_password_path }
 
@@ -29,7 +29,7 @@ feature 'Authentication for User', type: :feature do
     expect(page).to have_content I18n.t('devise.sessions.signed_in')
 
     # logging out
-    click_on 'Sign out'
+    click_on 'Sign Out'
 
     # redirected to login screen
     expect(current_path).to eq after_logout_path
