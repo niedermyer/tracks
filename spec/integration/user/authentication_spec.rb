@@ -22,7 +22,7 @@ feature 'Authentication for User', type: :feature do
   scenario 'logging in & out' do
     fill_in 'Email', with: devise_model.email
     fill_in 'Password', with: devise_model.password
-    click_button "Sign in"
+    click_button "Sign In"
 
     # logged in
     expect(current_path).to eq after_login_path
@@ -65,14 +65,14 @@ feature 'Authentication for User', type: :feature do
     9.times {
       fill_in 'Email', with: devise_model.email
       fill_in 'Password', with: 'bogus'
-      click_button "Sign in"
+      click_button "Sign In"
     }
 
     expect(page).to have_content I18n.t('devise.failure.last_attempt')
 
     fill_in 'Email', with: devise_model.email
     fill_in 'Password', with: 'bogus'
-    click_button "Sign in"
+    click_button "Sign In"
 
     expect(page).to have_content I18n.t('devise.failure.locked')
   end
