@@ -24,7 +24,16 @@
   </head>
 
   <body>
-    <%= render 'shared/flash_messages' %>
-    <%= yield %>
+    <%= render 'shared/header' %>
+
+    <div id="main">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-6 <%= 'col-xs-offset-3' if devise_controller? %>">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
