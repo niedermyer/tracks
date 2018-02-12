@@ -5,8 +5,11 @@
 
   <div class="form-inputs">
     <% resource.class.invite_key_fields.each do |field| -%>
-      <%= f.input field %>
+      <%= f.input field, required: true %>
     <% end -%>
+
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
   </div>
 
   <div class="form-actions">

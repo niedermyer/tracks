@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :users,
+             controllers: {
+               invitations: 'admin/invitations'
+             }
 
   devise_scope :user do
     authenticated :user do
@@ -17,5 +20,11 @@ Rails.application.routes.draw do
   end
 
   root to: 'user/dashboard#show'
+
+  namespace :admin do
+    get '/users', to: 'users#index'
+
+    root to: 'users#index'
+  end
 
 end

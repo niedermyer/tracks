@@ -1,0 +1,26 @@
+<h1>Users</h1>
+
+<%= link_to 'Invite New User', new_user_invitation_path, class: 'btn btn-default' %>
+
+<div class="table-responsive">
+  <table id="users" class="table table-striped">
+    <thead>
+      <tr>
+        <th class="user-flags">&nbsp;</th>
+        <th class="user-email">Email</th>
+        <th class="user-name">Name</th>
+        <th class="user-actions">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |u| %>
+        <tr id="<%= dom_id u %>">
+          <td class="user-flags"><%== '<span class="administrator">Administrator</span>' if u.administrator? %></td>
+          <td class="user-email"><%= mail_to u.email %><%== ' | <strong>PENDING</strong>' unless u.accepted_or_not_invited? %></td>
+          <td class="user-name"><%= u.first_name %> <%= u.last_name %></td>
+          <td class="user-actions"></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
