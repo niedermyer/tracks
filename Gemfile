@@ -38,6 +38,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Authentication framework
 gem 'devise'
+gem 'devise_invitable'
 
 # Twitter Bootstrap v4 sass integration
 gem 'bootstrap-sass'
