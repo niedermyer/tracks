@@ -9,6 +9,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column(:administrator).of_type(:boolean).with_options(null: false, default: false) }
     it { is_expected.to have_db_column(:created_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
+    it { is_expected.to have_db_column(:public_id).of_type(:string) }
 
     it { is_expected.to have_db_column(:email).of_type(:string).with_options(null: false, default: "") }
     it { is_expected.to have_db_column(:encrypted_password).of_type(:string).with_options(null: false, default: "") }
@@ -23,11 +24,19 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_column(:failed_attempts).of_type(:integer).with_options(null: false, default: 0) }
     it { is_expected.to have_db_column(:locked_at).of_type(:datetime) }
 
-    it { is_expected.to have_db_column(:public_id).of_type(:string) }
+    it { is_expected.to have_db_column(:invitation_token).of_type(:string) }
+    it { is_expected.to have_db_column(:invitation_created_at).of_type(:datetime) }
+    it { is_expected.to have_db_column(:invitation_sent_at).of_type(:datetime) }
+    it { is_expected.to have_db_column(:invitation_accepted_at).of_type(:datetime) }
+    it { is_expected.to have_db_column(:invitation_limit).of_type(:integer) }
+    it { is_expected.to have_db_column(:invitations_count).of_type(:integer).with_options(default: 0) }
 
     it { is_expected.to have_db_index(:email).unique(true) }
     it { is_expected.to have_db_index(:reset_password_token).unique(true) }
     it { is_expected.to have_db_index(:public_id).unique(true) }
+    it { is_expected.to have_db_index(:invitations_count) }
+    it { is_expected.to have_db_index(:invitation_token).unique(true) }
+    it { is_expected.to have_db_index(:invited_by_id) }
   end
 
   describe 'validations' do
