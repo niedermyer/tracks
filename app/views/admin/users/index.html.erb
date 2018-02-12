@@ -18,7 +18,11 @@
           <td class="user-flags"><%== '<span class="administrator">Administrator</span>' if u.administrator? %></td>
           <td class="user-email"><%= mail_to u.email %><%== ' | <strong>PENDING</strong>' unless u.accepted_or_not_invited? %></td>
           <td class="user-name"><%= u.first_name %> <%= u.last_name %></td>
-          <td class="user-actions"></td>
+          <td class="user-actions">
+            <% unless u.accepted_or_not_invited? %>
+              <%= link_to 'Resend Invitation', admin_user_duplicate_invitation_path(u), method: :post %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

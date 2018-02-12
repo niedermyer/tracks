@@ -34,7 +34,7 @@ feature 'User invitations as an administrator user', type: :feature do
     expect(current_email).to have_content 'Hello FIRST'
     expect(current_email).to have_content 'Luke Niedermyer has invited you to join Activity Log.'
 
-    current_email.click_link 'Accept Invitation'
+    current_email.click_link I18n.t("devise.mailer.invitation_instructions.accept")
 
     expect(page.current_path).to eq accept_user_invitation_path
     expect(find_field('First name').value).to eq 'FIRST'
@@ -65,6 +65,24 @@ feature 'User invitations as an administrator user', type: :feature do
     # redirected to the invite form
     expect(current_path).to eq user_invitation_path
     expect(page).to have_content "Email can't be blank"
+  end
+
+  context 'given a pending invitee' do
+    let!(:pending_invitee) { create :user, :pending_invitation }
+
+    before { visit admin_users_path }
+
+    scenario "resending an invitation from the index page" do
+      clear_emails # Sanity
+
+      click_on "Resend Invitation"
+
+      expect(page).to have_content I18n.t("devise.invitations.resend_instructions.notice", email: pending_invitee.email)
+      expect(page.current_path).to eq admin_users_path
+
+      open_email pending_invitee.email
+      expect(current_email).to have_link I18n.t("devise.mailer.invitation_instructions.accept")
+    end
   end
 end
 

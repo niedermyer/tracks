@@ -2,25 +2,25 @@
   <div class="row">
     <div class="col-xs-12">
 
-      <% if flash[:alert].present? %>
+      <% if flash[:alert].present? || flash[:alert_html_safe].present? %>
         <div id="flash-alert">
           <div class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert">
               <span aria-hidden="true">&times;</span>
               <span class="sr-only">Close</span>
             </button>
-            <%= flash[:alert] %>
+            <%= flash[:alert_html_safe].present? ? flash[:alert_html_safe].html_safe : flash[:alert] %>
           </div>
         </div>
       <% end %>
-      <% if flash[:notice].present? %>
+      <% if flash[:notice].present? || flash[:notice_html_safe].present? %>
         <div id="flash-notice">
           <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert">
               <span aria-hidden="true">&times;</span>
               <span class="sr-only">Close</span>
             </button>
-            <%= flash[:notice] %>
+            <%= flash[:notice_html_safe].present? ? flash[:notice_html_safe].html_safe : flash[:notice] %>
           </div>
         </div>
       <% end %>
