@@ -1,4 +1,4 @@
-<h1><%= @user.full_name %><%== ' | <strong>PENDING</strong>' unless @user.accepted_or_not_invited? %></h1>
+<h1><%= @user.full_name %></h1>
 
 <div class="table-responsive">
   <table class="table table-striped attributes-table">
@@ -43,7 +43,7 @@
     <tbody>
     <tr>
       <th scope="row">Invited by</th>
-      <td><%= @inviter ? link_to(@inviter.full_name, admin_user_path(@inviter)) : 'This user was not invited' %></td>
+      <td><%= @inviter ? link_to(@inviter.full_name, admin_user_path(@inviter)) : 'This user was not created via an invitation' %></td>
     </tr>
     <% if @user.created_by_invite? %>
       <tr>
