@@ -15,4 +15,49 @@
 
 body {
   min-width: 320px;
+  font-weight: $font-weight-normal;
+}
+
+.small,
+.radio label,
+.checkbox label,
+.radio-inline,
+.checkbox-inline,
+.btn-link,
+.dropdown-menu > li > a,
+.input-group-addon,
+.tooltip,
+.popover,
+.label {
+  font-weight: $font-weight-normal;
+}
+
+b,
+strong,
+dt,
+optgroup,
+label,
+th {
+  font-weight: $font-weight-bold;
+}
+
+a:focus {
+  outline-width: 3px;
+  outline-offset: 0;
+}
+
+.navbar {
+  a:focus {
+    outline-offset: -2px;
+  }
+}
+
+input,
+.form-control {
+  font-size: 16px;
+}
+
+.required-mark {
+  color: $state-danger-text;
+  margin-left: -2px;
 }

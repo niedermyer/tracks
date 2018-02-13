@@ -11,7 +11,74 @@
  */
 
 // Custom Theme Colors & Variables
-//$red-base: red;
+$off-white: #fafafa;
 
 // Bootstrap Variable Overrides
-//$brand-primary: $red-base;
+$brand-primary: #007bff;
+$brand-secondary: #6c757d;
+
+$gray-white: $off-white;
+$gray-lightest: #e7e7e7;
+$gray-lighter: #d2d2d2;
+$gray-light: #a2aaae;
+$divider-gray: #9c9c9c;
+$gray: #80878c;
+$gray-dark: #676767;
+$gray-darker: #373738;
+$gray-darkest: #2e2e2e;
+
+// Navbar
+$navbar-margin-bottom: 0;
+$navbar-border-radius: 0;
+
+
+// Fonts
+$font-family-sans-serif: 'Roboto Condensed', sans-serif;
+$font-family-sans-serif-italic: 'Roboto Condensed', sans-serif;
+$font-family-sans-serif-bold: 'Roboto Condensed', sans-serif;
+$font-family-serif: 'Roboto Condensed', sans-serif;
+$headings-font-family: $font-family-serif;
+$font-size-base: 18px;
+$font-size-h1: 2.055556em;
+$font-size-h2: 1.666667em;
+$font-size-h3: 1.166667em;
+$font-size-h4: 1em;
+$font-size-base-28px: 1.555556em;
+$font-size-base-26px: 1.444444em;
+$font-size-base-25_5px: 1.416667em;
+$font-size-base-23px: 1.277778em;
+$font-size-base-16px: 0.888889em;
+$font-size-base-15px: 0.833333em;
+$font-size-base-14px: 0.777778em;
+$font-size-base-12px: 0.666667em;
+$btn-icon-font-size: 0.833333em;
+$font-weight-normal: 300;
+$font-weight-bold: 400;
+$line-height-base: 1.51666667;
+$headings-font-weight: $font-weight-normal;
+$headings-color: $brand-secondary;
+$btn-font-weight: $font-weight-normal;
+$alert-link-font-weight: $font-weight-normal;
+$badge-font-weight: $font-weight-normal;
+$close-font-weight: $font-weight-normal;
+
+$text-color: $gray-darkest;
+
+$input-bg: $off-white;
+$input-border: $gray-lighter;
+$input-group-addon-bg: $input-bg;
+$input-group-addon-border-color: $input-bg;
+$input-color: $brand-secondary;
+$input-color-placeholder: $gray-lighter;
+$input-border-radius: 0;
+$input-border-radius-small: $input-border-radius;
+$input-border-radius-large: $input-border-radius;
+$input-height-base: 37px;
+$legend-color: $brand-secondary;
+$legend-border-color: $divider-gray;
+
+$hr-border: $gray-lightest;
+
+$border-radius-small: 0px;
+$border-radius-base: 0px;
+$border-radius-large: 2px;
