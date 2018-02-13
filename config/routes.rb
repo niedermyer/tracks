@@ -22,7 +22,8 @@ Rails.application.routes.draw do
   root to: 'user/dashboard#show'
 
   namespace :admin do
-    get '/users', to: 'users#index'
+    get '/users', to: 'users#index', as: :users
+    get '/users/:id', to: 'users#show', as: :user
     post '/users/:user_id/duplicate_invitation', to: 'users/duplicate_invitations#create', as: :user_duplicate_invitation
 
     root to: 'users#index'

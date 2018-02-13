@@ -1,1 +1,13 @@
 @import "base";
+
+.index-table {
+  font-size: $font-size-base-16px;
+}
+
+.attributes-table {
+  th {
+    text-align: right;
+    border-right: 1px solid $table-border-color;
+    width: 200px;
+  }
+}

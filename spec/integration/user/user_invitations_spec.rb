@@ -21,7 +21,8 @@ feature 'User invitations as an administrator user', type: :feature do
     expect(page).to have_content I18n.t("devise.invitations.send_instructions", email: 'new_user@example.com')
 
     within dom_id_selector(User.last) do
-      expect(page).to have_content 'new_user@example.com | PENDING'
+      expect(page).to have_content 'Pending'
+      expect(page).to have_link 'new_user@example.com'
       expect(page).to have_content 'FIRST'
       expect(page).to have_content 'LAST'
     end
@@ -79,6 +80,22 @@ feature 'User invitations as an administrator user', type: :feature do
 
       expect(page).to have_content I18n.t("devise.invitations.resend_instructions.notice", email: pending_invitee.email)
       expect(page.current_path).to eq admin_users_path
+
+      open_email pending_invitee.email
+      expect(current_email).to have_link I18n.t("devise.mailer.invitation_instructions.accept")
+    end
+
+    scenario "resending an invitation from the show page" do
+      within dom_id_selector(pending_invitee) do
+        click_on 'View'
+      end
+
+      clear_emails # Sanity
+
+      click_on "Resend Invitation"
+
+      expect(page).to have_content I18n.t("devise.invitations.resend_instructions.notice", email: pending_invitee.email)
+      expect(page.current_path).to eq admin_user_path(pending_invitee)
 
       open_email pending_invitee.email
       expect(current_email).to have_link I18n.t("devise.mailer.invitation_instructions.accept")

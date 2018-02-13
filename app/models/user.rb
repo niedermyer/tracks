@@ -14,6 +14,9 @@ class User < ApplicationRecord
 
   before_save :set_public_id
 
+  def full_name
+    "#{first_name} #{last_name}".squish
+  end
 
   private
 

@@ -83,4 +83,11 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#full_name' do
+    let(:user) { build :user, first_name: ' Jane ', last_name: '  Doe ' }
+    it "concatenates the first and last name while removing extra whitespace" do
+      expect(user.full_name).to eq 'Jane Doe'
+    end
+  end
 end

@@ -1,0 +1,74 @@
+<h1><%= @user.full_name %><%== ' | <strong>PENDING</strong>' unless @user.accepted_or_not_invited? %></h1>
+
+<div class="table-responsive">
+  <table class="table table-striped attributes-table">
+    <tbody>
+      <tr>
+        <th scope="row">First Name</th>
+        <td><%= @user.first_name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Last Name</th>
+        <td><%= @user.last_name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Email</th>
+        <td><%= mail_to @user.email %></td>
+      </tr>
+      <tr>
+        <th scope="row">Processing Email</th>
+        <td><input value="<%= @user.public_id %>@parse-activity.niedermyer.tech" class="form-control" readonly onclick="this.select();" style="width: 320px; display: inline-block;" /></td>
+      </tr>
+      <tr>
+        <th scope="row">Administrator</th>
+        <td><%= @user.administrator? %></td>
+      </tr>
+      <tr>
+        <th scope="row">Created</th>
+        <td><%= l(@user.created_at, format: :long) %></td>
+      </tr>
+      <tr>
+        <th scope="row">Updated</th>
+        <td><%= l(@user.updated_at, format: :long) %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="table-responsive">
+  <h2>Invitation Information</h2>
+  <table class="table table-striped attributes-table">
+    <tbody>
+    <tr>
+      <th scope="row">Invited by</th>
+      <td><%= @inviter ? link_to(@inviter.full_name, admin_user_path(@inviter)) : 'This user was not invited' %></td>
+    </tr>
+    <% if @user.created_by_invite? %>
+      <tr>
+        <th scope="row">Invitation Sent At</th>
+        <td><%= l(@user.invitation_sent_at, format: :long) %></td>
+      </tr>
+      <% if @user.invitation_accepted? %>
+          <tr>
+            <th scope="row">Invitation Accepted At</th>
+            <td><%= l(@user.invitation_accepted_at, format: :long) %></td>
+          </tr>
+        </tbody>
+      <% else %>
+          <tr>
+            <th scope="row">Invitation Accepted At</th>
+            <td><strong>PENDING</strong></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th><span class="sr-only">Actions</span></th>
+            <td>
+              <%= link_to 'Resend Invitation', admin_user_duplicate_invitation_path(@user), method: :post, class: 'btn btn-default btn-xs' %>
+            </td>
+          </tr>
+        </tfoot>
+      <% end %>
+    <% end %>
+  </table>
+</div>

@@ -3,7 +3,7 @@
 <%= link_to 'Invite New User', new_user_invitation_path, class: 'btn btn-default' %>
 
 <div class="table-responsive">
-  <table id="users" class="table table-striped">
+  <table id="users" class="table table-striped table-bordered index-table">
     <thead>
       <tr>
         <th class="user-flags">&nbsp;</th>
@@ -15,10 +15,14 @@
     <tbody>
       <% @users.each do |u| %>
         <tr id="<%= dom_id u %>">
-          <td class="user-flags"><%== '<span class="administrator">Administrator</span>' if u.administrator? %></td>
-          <td class="user-email"><%= mail_to u.email %><%== ' | <strong>PENDING</strong>' unless u.accepted_or_not_invited? %></td>
-          <td class="user-name"><%= u.first_name %> <%= u.last_name %></td>
+          <td class="user-flags">
+            <%== '<span class="user-flag administrator">Administrator</span>' if u.administrator? %>
+            <%== '<span class="user-flag pending">Pending</span>' unless u.accepted_or_not_invited? %>
+          </td>
+          <td class="user-email"><%= mail_to u.email %></td>
+          <td class="user-name"><%= u.full_name %></td>
           <td class="user-actions">
+            <%= link_to 'View', admin_user_path(u) %>
             <% unless u.accepted_or_not_invited? %>
               <%= link_to 'Resend Invitation', admin_user_duplicate_invitation_path(u), method: :post %>
             <% end %>
