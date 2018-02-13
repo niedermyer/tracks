@@ -27,6 +27,7 @@ en:
 
   user:
     confirmations:
+      destroy: Are you sure you want to destroy user %{identifier}?
       destroy_pending: Are you sure you want to revoke the invitation to %{identifier} and delete their account?
     flashes:
       destroy:

@@ -113,7 +113,7 @@ feature 'User invitations as an administrator user', type: :feature do
 
       expect(User.count).to eq 1
       expect(page.current_path).to eq admin_users_path
-      expect(page).to have_content I18n.t('user.flashes.destroy.notice', identifier: pending_invitee.email)
+      expect(page).to have_content I18n.t('user.flashes.destroy.notice', identifier: "#{pending_invitee.full_name} <#{pending_invitee.email}>")
       expect(page).not_to have_css "#user_#{pending_invitee.id}"
     end
   end

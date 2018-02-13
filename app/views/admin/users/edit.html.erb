@@ -1,0 +1,9 @@
+<h1><%= @user.full_name %></h1>
+
+<div id="destructive-actions">
+  <%= link_to "Delete User", admin_destroy_user_path(@user),
+              method: :delete,
+              class: 'btn btn-danger btn-sm',
+              data: { confirm: t('user.confirmations.destroy', identifier: "#{@user.full_name} <#{@user.email}>") } %>
+
+</div>

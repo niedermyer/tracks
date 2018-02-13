@@ -91,4 +91,21 @@ feature 'User management', type: :feature do
     expect(page).to have_link 'Resend Invitation'
     expect(page).to have_link 'Delete Pending User'
   end
+
+  scenario 'delete an user' do
+    expect(User.count).to eq 3
+
+    within dom_id_selector(user_2) do
+      click_on 'Edit'
+    end
+
+    # Ensure that a confirmation dialog appears when clicking the delete button
+    id = "#{user_2.full_name} <#{user_2.email}>"
+    expect(page).to have_css("a[data-method='delete'][data-confirm='#{I18n.t('user.confirmations.destroy', identifier: id)}']", text: "Delete User" )
+    click_on "Delete User"
+
+    expect(User.count).to eq 2
+    expect(page.current_path).to eq admin_users_path
+    expect(page).to have_content I18n.t('user.flashes.destroy.notice', identifier: "#{id}")
+  end
 end

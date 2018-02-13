@@ -23,7 +23,9 @@
           <td class="user-name"><%= u.full_name %></td>
           <td class="user-actions">
             <%= link_to 'View', admin_user_path(u) %>
-            <% unless u.accepted_or_not_invited? %>
+            <% if u.accepted_or_not_invited? %>
+              <%= link_to 'Edit', admin_edit_user_path(u) %>
+            <% else %>
               <%= link_to 'Resend Invitation', admin_user_duplicate_invitation_path(u), method: :post %>
             <% end %>
           </td>
