@@ -23,8 +23,6 @@ feature 'User invitations as an administrator user', type: :feature do
     within dom_id_selector(User.last) do
       expect(page).to have_content 'Pending'
       expect(page).to have_link 'new_user@example.com'
-      expect(page).to have_content 'FIRST'
-      expect(page).to have_content 'LAST'
     end
 
     open_email 'new_user@example.com'
@@ -38,6 +36,8 @@ feature 'User invitations as an administrator user', type: :feature do
     current_email.click_link I18n.t("devise.mailer.invitation_instructions.accept")
 
     expect(page.current_path).to eq accept_user_invitation_path
+    expect(page).to have_css "#user_email[disabled='disabled']"
+    expect(find_field('Email', disabled: true).value).to eq 'new_user@example.com'
     expect(find_field('First name').value).to eq 'FIRST'
     expect(find_field('Last name').value).to eq 'LAST'
 
