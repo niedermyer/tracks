@@ -122,18 +122,14 @@ end
 feature 'User invitations as an base user', type: :feature do
   let!(:admin) { create :user, :admin }
   let!(:user) { create :user, administrator: false }
+  let!(:pending_invitee) { create :user, :pending_invitation }
 
   before do
     sign_in_as user
     visit user_dashboard_path
   end
 
-  scenario 'Admin link is not displayed' do
-    expect(page).not_to have_link 'Admin'
-  end
-
   %w(
-    admin_root_path
     admin_users_path
     new_user_invitation_path
   ).each do |admin_path|
@@ -154,5 +150,16 @@ feature 'User invitations as an base user', type: :feature do
     }.to raise_error ActionController::RoutingError
 
     expect(User.find_by(email: 'super_hax@example.com')).to eq nil
+  end
+
+  scenario 'not permitted to manually resend a user invitation' do
+    clear_emails # Sanity
+
+    expect {
+      page.driver.submit :post, admin_user_duplicate_invitation_path(pending_invitee), {}
+    }.to raise_error ActionController::RoutingError
+
+    open_email pending_invitee.email
+    expect(current_email).to eq nil
   end
 end

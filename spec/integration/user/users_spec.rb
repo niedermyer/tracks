@@ -1,6 +1,6 @@
 require 'integration/integration_spec_helper'
 
-feature 'User management', type: :feature do
+feature 'User management as administrator user', type: :feature do
   let!(:admin) { create :user, :admin }
   let!(:user_1) { create :user,
                          :pending_invitation,
@@ -107,5 +107,62 @@ feature 'User management', type: :feature do
     expect(User.count).to eq 2
     expect(page.current_path).to eq admin_users_path
     expect(page).to have_content I18n.t('user.flashes.destroy.notice', identifier: "#{id}")
+  end
+end
+
+feature 'User management as an base user', type: :feature do
+  let!(:admin) { create :user, :admin }
+  let!(:user_1) { create :user, administrator: false }
+  let!(:user_2) { create :user, administrator: false }
+
+  before do
+    sign_in_as user_1
+    visit user_dashboard_path
+  end
+
+  scenario 'Admin link is not displayed' do
+    expect(page).not_to have_link 'Admin'
+  end
+
+  %w(
+    admin_root_path
+    admin_users_path
+  ).each do |admin_path|
+    scenario "#{admin_path} renders a 404" do
+      expect { visit send(admin_path) }.to raise_error ActionController::RoutingError
+    end
+  end
+
+  %w(
+    admin_user_path
+    admin_edit_user_path
+  ).each do |admin_path|
+    scenario "#{admin_path}(user_2) renders a 404" do
+      expect { visit send(admin_path, user_2) }.to raise_error ActionController::RoutingError
+    end
+  end
+
+  scenario 'not permitted to manually resend invitation to a user' do
+    starting_user_count = 3
+    expect(User.count).to eq starting_user_count
+
+    expect {
+      page.driver.submit :delete, admin_destroy_user_path(user_2), {}
+    }.to raise_error ActionController::RoutingError
+
+    expect(User.count).to eq starting_user_count
+    expect(User.find_by(email: user_2.email)).not_to eq nil
+  end
+
+  scenario 'not permitted to manually destroy a user' do
+    starting_user_count = 3
+    expect(User.count).to eq starting_user_count
+
+    expect {
+      page.driver.submit :delete, admin_destroy_user_path(user_2), {}
+    }.to raise_error ActionController::RoutingError
+
+    expect(User.count).to eq starting_user_count
+    expect(User.find_by(email: user_2.email)).not_to eq nil
   end
 end
