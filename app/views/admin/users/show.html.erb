@@ -17,7 +17,9 @@
       </tr>
       <tr>
         <th scope="row">Processing Email</th>
-        <td><input value="<%= @user.public_id %>@parse-activity.niedermyer.tech" class="form-control" readonly onclick="this.select();" style="width: 320px; display: inline-block;" /></td>
+        <td>
+          <span class="form-control" style="width: 320px;"><%= @user.processing_email %></span>
+        </td>
       </tr>
       <tr>
         <th scope="row">Administrator</th>
