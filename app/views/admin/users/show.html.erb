@@ -64,7 +64,11 @@
           <tr>
             <th><span class="sr-only">Actions</span></th>
             <td>
-              <%= link_to 'Resend Invitation', admin_user_duplicate_invitation_path(@user), method: :post, class: 'btn btn-default btn-xs' %>
+              <%= link_to 'Resend Invitation', admin_user_duplicate_invitation_path(@user), method: :post, class: 'btn btn-default btn-sm' %>
+              <%= link_to "Delete Pending User", admin_destroy_user_path(@user),
+                          method: :delete,
+                          class: 'btn btn-danger btn-sm',
+                          data: { confirm: t('user.confirmations.destroy_pending', identifier: @user.email) } %>
             </td>
           </tr>
         </tfoot>

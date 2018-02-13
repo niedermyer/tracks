@@ -4,9 +4,6 @@ en:
       invited: "You have a pending invitation, accept it to finish creating your account."
     invitations:
       send_instructions: "An invitation email has been sent to %{email}"
-      resend_instructions:
-        notice: "A new invitation email has been sent to %{email}"
-        alert_html: "The specified user is no longer in the system. Please create a <a href='%{path}' class='alert-link'>new invitation</a>."
       invitation_token_invalid: "The invitation token provided is not valid!"
       updated: "Your password was set successfully. You are now signed in."
       updated_not_active: "Your password was set successfully."

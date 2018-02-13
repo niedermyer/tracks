@@ -78,7 +78,7 @@ feature 'User invitations as an administrator user', type: :feature do
 
       click_on "Resend Invitation"
 
-      expect(page).to have_content I18n.t("devise.invitations.resend_instructions.notice", email: pending_invitee.email)
+      expect(page).to have_content I18n.t("user.flashes.resend_invite.notice", identifier: pending_invitee.email)
       expect(page.current_path).to eq admin_users_path
 
       open_email pending_invitee.email
@@ -94,11 +94,27 @@ feature 'User invitations as an administrator user', type: :feature do
 
       click_on "Resend Invitation"
 
-      expect(page).to have_content I18n.t("devise.invitations.resend_instructions.notice", email: pending_invitee.email)
+      expect(page).to have_content I18n.t("user.flashes.resend_invite.notice", identifier: pending_invitee.email)
       expect(page.current_path).to eq admin_user_path(pending_invitee)
 
       open_email pending_invitee.email
       expect(current_email).to have_link I18n.t("devise.mailer.invitation_instructions.accept")
+    end
+
+    scenario "deleting the pending user and invitation" do
+      expect(User.count).to eq 2
+      within dom_id_selector(pending_invitee) do
+        click_on 'View'
+      end
+
+      # Ensure that a confirmation dialog appears when clicking the delete button
+      expect(page).to have_css("a[data-method='delete'][data-confirm='#{I18n.t('user.confirmations.destroy_pending', identifier: pending_invitee.email)}']", text: 'Delete Pending User')
+      click_on "Delete Pending User"
+
+      expect(User.count).to eq 1
+      expect(page.current_path).to eq admin_users_path
+      expect(page).to have_content I18n.t('user.flashes.destroy.notice', identifier: pending_invitee.email)
+      expect(page).not_to have_css "#user_#{pending_invitee.id}"
     end
   end
 end

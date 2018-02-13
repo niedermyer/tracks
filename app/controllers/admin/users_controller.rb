@@ -8,4 +8,12 @@ class Admin::UsersController < AdminController
     @user = User.find params[:id]
     @inviter = @user.invited_by_id.present? ? User.find(@user.invited_by_id) : nil
   end
+
+  def destroy
+    @user = User.find params[:id]
+    @user.destroy!
+
+    flash[:notice] = t('user.flashes.destroy.notice', identifier: @user.email)
+    redirect_to admin_users_path
+  end
 end

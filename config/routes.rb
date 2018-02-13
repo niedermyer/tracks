@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/users', to: 'users#index', as: :users
     get '/users/:id', to: 'users#show', as: :user
+    delete '/users/:id', to: 'users#destroy', as: :destroy_user
     post '/users/:user_id/duplicate_invitation', to: 'users/duplicate_invitations#create', as: :user_duplicate_invitation
 
     root to: 'users#index'

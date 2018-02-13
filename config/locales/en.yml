@@ -24,3 +24,13 @@ en:
   time:
     formats:
       long: "%B %-d, %Y at %-I:%M %P"
+
+  user:
+    confirmations:
+      destroy_pending: Are you sure you want to revoke the invitation to %{identifier} and delete their account?
+    flashes:
+      destroy:
+        notice: Successfully destroyed user with email %{identifier}
+      resend_invite:
+        notice: A new invitation email has been sent to %{identifier}
+        alert_html: The specified user is no longer in the system. Please create a <a href='%{new_user_invitation_path}' class='alert-link'>new invitation</a>.
