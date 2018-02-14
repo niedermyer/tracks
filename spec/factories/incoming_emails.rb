@@ -2,16 +2,16 @@ FactoryBot.define do
   factory :incoming_email, class: OpenStruct do
     to [
          {
-           full: "user_public_id@#{EmailProcessor::PROCESSING_HOSTNAME}",
-           email: "user_public_id@#{EmailProcessor::PROCESSING_HOSTNAME}",
-           token: "user_public_id",
+           full: "first_token@#{EmailProcessor::PROCESSING_HOSTNAME}",
+           email: "first_token@#{EmailProcessor::PROCESSING_HOSTNAME}",
+           token: "first_token",
            host: EmailProcessor::PROCESSING_HOSTNAME,
            name: nil
          },
          {
-           full: "bogus@#{EmailProcessor::PROCESSING_HOSTNAME}",
-           email: "bogus@#{EmailProcessor::PROCESSING_HOSTNAME}",
-           token: "bogus",
+           full: "second_token@#{EmailProcessor::PROCESSING_HOSTNAME}",
+           email: "second_token@#{EmailProcessor::PROCESSING_HOSTNAME}",
+           token: "second_token",
            host: EmailProcessor::PROCESSING_HOSTNAME,
            name: nil
          }
@@ -37,7 +37,7 @@ FactoryBot.define do
       attachments { [] }
     end
 
-    trait :with_other_attachment do
+    trait :with_other_attachments do
       attachments { [
         ActionDispatch::Http::UploadedFile.new({
                                                  filename: 'rails.jpeg',
