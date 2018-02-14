@@ -1,15 +1,28 @@
 FactoryBot.define do
   factory :incoming_email, class: OpenStruct do
-    to [{ full: 'to_user@inbox.com',
-          email: 'to_user@inbox.com',
-          token: 'to_user',
-          host: 'inbox.com',
-          name: nil }]
-    from({ token: 'from_user',
+    to [
+         {
+           full: "user_public_id@#{EmailProcessor::PROCESSING_HOSTNAME}",
+           email: "user_public_id@#{EmailProcessor::PROCESSING_HOSTNAME}",
+           token: "user_public_id",
+           host: EmailProcessor::PROCESSING_HOSTNAME,
+           name: nil
+         },
+         {
+           full: "bogus@#{EmailProcessor::PROCESSING_HOSTNAME}",
+           email: "bogus@#{EmailProcessor::PROCESSING_HOSTNAME}",
+           token: "bogus",
+           host: EmailProcessor::PROCESSING_HOSTNAME,
+           name: nil
+         }
+       ]
+    from({
+           token: 'from_user',
            host: 'example.com',
            email: 'from_email@example.com',
            full: 'From User <from_user@example.com>',
-           name: 'From User' })
+           name: 'From User'
+         })
     subject 'email subject'
     body 'sent from my phone'
     attachments { [
