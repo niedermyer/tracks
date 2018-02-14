@@ -74,14 +74,14 @@ class EmailProcessor
 
   def email_attributes
     output = "\n"
-    output += "TO: #{email.to.map{|to| to[:full]}}\n"
-    output += "FROM: #{email.from[:full]}\n"
-    output += "CC: #{email.cc}\n"
-    output += "SUBJECT: #{email.subject}\n"
-    output += "BODY (above delimiter): #{email.body}\n"
-    output += "ATTACHMENTS: #{email.attachments}\n"
-    output += "RAW BODY: #{email.raw_body}\n"
-    output += "HEADERS: #{email.headers}\n"
+    output += "[#{email_md5}] TO: #{email.to.map{|to| to[:full]}}\n"
+    output += "[#{email_md5}] FROM: #{email.from[:full]}\n"
+    output += "[#{email_md5}] CC: #{email.cc}\n"
+    output += "[#{email_md5}] SUBJECT: #{email.subject}\n"
+    output += "[#{email_md5}] BODY (above delimiter): #{email.body}\n"
+    output += "[#{email_md5}] ATTACHMENTS: #{email.attachments}\n"
+    output += "[#{email_md5}] RAW BODY: #{email.raw_body}\n"
+    output += "[#{email_md5}] HEADERS: #{email.headers}\n"
     output
   end
 end
