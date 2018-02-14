@@ -27,17 +27,17 @@ describe EmailProcessor do
 
       it "logs concise info for each to address, plus a full email inspection" do
         email.to.each do |to_address|
-          expect(Rails.logger).to receive(:info).with "EmailProcessor::UserNotFound [123abc] No user found with given public_id. given_public_id: #{to_address[:token]}"
+          expect(Rails.logger).to receive(:warn).with "EmailProcessor::UserNotFound [123abc] No user found with given public_id. given_public_id: #{to_address[:token]}"
         end
-        expect(Rails.logger).to receive(:info).with /^EmailProcessor::UserNotFound \[123abc\] No user found with given public_id. email_object: #<OpenStruct.*$/
+        expect(Rails.logger).to receive(:warn).with /^EmailProcessor::UserNotFound \[123abc\] No user found with given public_id. email_attributes: \nTO: .*$/
         processor.process
       end
     end
 
     context 'when SOME of the relevant to email addresses do NOT belong to a user in the database' do
       it "only logs concise info for the bad to address, plus a full email inspection" do
-        expect(Rails.logger).to receive(:info).with "EmailProcessor::UserNotFound [123abc] No user found with given public_id. given_public_id: second_token"
-        expect(Rails.logger).to receive(:info).with /^EmailProcessor::UserNotFound \[123abc\] No user found with given public_id. email_object: #<OpenStruct.*$/
+        expect(Rails.logger).to receive(:warn).with "EmailProcessor::UserNotFound [123abc] No user found with given public_id. given_public_id: second_token"
+        expect(Rails.logger).to receive(:warn).with /^EmailProcessor::UserNotFound \[123abc\] No user found with given public_id. email_attributes: \nTO: .*$/
         processor.process
       end
     end
@@ -50,9 +50,9 @@ describe EmailProcessor do
 
         it "logs informative message, plus a full email inspection" do
           email.to.each do |to_address|
-            expect(Rails.logger).to receive(:info).with "EmailProcessor::AttachmentNotFound [123abc] Could not find any email attachments. given_public_id: #{to_address[:token]}"
+            expect(Rails.logger).to receive(:warn).with "EmailProcessor::AttachmentNotFound [123abc] Could not find any email attachments. given_public_id: #{to_address[:token]}"
           end
-          expect(Rails.logger).to receive(:info).with /^EmailProcessor::AttachmentNotFound \[123abc\] Could not find any email attachments. email_object: #<OpenStruct.*$/
+          expect(Rails.logger).to receive(:warn).with /^EmailProcessor::AttachmentNotFound \[123abc\] Could not find any email attachments. email_attributes: \nTO: .*$/
           processor.process
         end
       end
@@ -61,9 +61,9 @@ describe EmailProcessor do
 
         it "logs informative message, plus a full email inspection" do
           email.to.each do |to_address|
-            expect(Rails.logger).to receive(:info).with "EmailProcessor::UnprocessableAttachment [123abc] None of the attached files were of correct type. given_public_id: #{to_address[:token]}"
+            expect(Rails.logger).to receive(:warn).with "EmailProcessor::UnprocessableAttachment [123abc] None of the attached files were of correct type. given_public_id: #{to_address[:token]}"
           end
-          expect(Rails.logger).to receive(:info).with /^EmailProcessor::UnprocessableAttachment \[123abc\] None of the attached files were of correct type. email_object: #<OpenStruct.*$/
+          expect(Rails.logger).to receive(:warn).with /^EmailProcessor::UnprocessableAttachment \[123abc\] None of the attached files were of correct type. email_attributes: \nTO: .*$/
           processor.process
         end
       end

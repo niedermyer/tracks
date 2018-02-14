@@ -43,7 +43,7 @@ class EmailProcessor
       errors.each do |e|
         log_error_message(e[:object], "given_public_id: #{e[:token]}")
       end
-      log_error_message(errors.first[:object], "email_object: #{email.inspect}")
+      log_error_message(errors.first[:object], "email_attributes: #{email_attributes}")
     end
   end
 
@@ -69,6 +69,19 @@ class EmailProcessor
   end
 
   def log_error_message(error, additional_message)
-    Rails.logger.info( "#{error.class} [#{email_md5}] #{error.message} #{additional_message}" )
+    Rails.logger.warn( "#{error.class} [#{email_md5}] #{error.message} #{additional_message}" )
+  end
+
+  def email_attributes
+    output = "\n"
+    output += "TO: #{email.to.map{|to| to[:full]}}\n"
+    output += "FROM: #{email.from[:full]}\n"
+    output += "CC: #{email.cc}\n"
+    output += "SUBJECT: #{email.subject}\n"
+    output += "BODY (above delimiter): #{email.body}\n"
+    output += "ATTACHMENTS: #{email.attachments}\n"
+    output += "RAW BODY: #{email.raw_body}\n"
+    output += "HEADERS: #{email.headers}\n"
+    output
   end
 end
