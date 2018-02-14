@@ -93,7 +93,13 @@ GEM
     ffi (1.9.18)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    griddler (1.4.0)
+      htmlentities
+      rails (>= 3.2.0)
+    griddler-sendgrid (1.0.1)
+      griddler
     highline (1.7.10)
+    htmlentities (4.3.4)
     i18n (0.9.3)
       concurrent-ruby (~> 1.0)
     jbuilder (2.7.0)
@@ -264,6 +270,8 @@ DEPENDENCIES
   devise
   devise_invitable
   factory_bot_rails
+  griddler
+  griddler-sendgrid
   highline
   jbuilder (~> 2.5)
   jquery-rails

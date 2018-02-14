@@ -49,6 +49,10 @@ gem 'simple_form'
 # Structured seed data
 gem "seedbank"
 
+# Incoming email processing
+gem 'griddler'
+gem 'griddler-sendgrid'
+
 
 group :development, :test do
 

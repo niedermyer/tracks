@@ -31,4 +31,6 @@ Rails.application.routes.draw do
     root to: 'users#index'
   end
 
+  # email processing
+  post '/emails/inbox', to: 'griddler/emails#create'
 end
