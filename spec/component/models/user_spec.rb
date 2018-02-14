@@ -1,6 +1,6 @@
 require 'component/component_spec_helper'
 
-RSpec.describe User, type: :model do
+describe User, type: :model do
 
   describe 'the users table' do
     subject { User.new }
