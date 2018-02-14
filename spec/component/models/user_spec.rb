@@ -47,11 +47,6 @@ describe User, type: :model do
     it { is_expected.not_to allow_value("invalidemail").for(:email) }
   end
 
-  describe '::EMAIL_PROCESSING_HOSTNAME' do
-    subject { User::EMAIL_PROCESSING_HOSTNAME }
-    it { is_expected.to eq 'parse-activity.niedermyer.tech' }
-  end
-
   describe 'automatically generating #public_id on save' do
     context 'on a new User' do
       let(:user){ build :user }
@@ -99,7 +94,7 @@ describe User, type: :model do
   describe '#processing_email' do
     let!(:user) { create :user }
     it "constructs the user's processing email from their public_id" do
-      expect(user.processing_email).to eq "#{user.public_id}@#{User::EMAIL_PROCESSING_HOSTNAME}"
+      expect(user.processing_email).to eq "#{user.public_id}@#{EmailProcessor::PROCESSING_HOSTNAME}"
     end
   end
 end

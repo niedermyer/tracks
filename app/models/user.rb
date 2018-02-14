@@ -8,8 +8,6 @@ class User < ApplicationRecord
          :lockable,
          :invitable
 
-  EMAIL_PROCESSING_HOSTNAME = 'parse-activity.niedermyer.tech'
-
   validates :first_name,
             :last_name,
             presence: true
@@ -21,7 +19,7 @@ class User < ApplicationRecord
   end
 
   def processing_email
-    "#{public_id}@#{EMAIL_PROCESSING_HOSTNAME}"
+    "#{public_id}@#{EmailProcessor::PROCESSING_HOSTNAME}"
   end
 
   private

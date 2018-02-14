@@ -1,5 +1,7 @@
 class EmailProcessor
 
+  PROCESSING_HOSTNAME = 'parse-activity.niedermyer.tech'
+
   def initialize email
     @email = email
   end
