@@ -53,6 +53,9 @@ gem "seedbank"
 gem 'griddler'
 gem 'griddler-sendgrid'
 
+# GPX file parser
+gem 'gpx'
+
 
 group :development, :test do
 

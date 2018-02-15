@@ -93,6 +93,9 @@ GEM
     ffi (1.9.21)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    gpx (0.9.0)
+      nokogiri (~> 1.7)
+      rake
     griddler (1.4.0)
       htmlentities
       rails (>= 3.2.0)
@@ -270,6 +273,7 @@ DEPENDENCIES
   devise
   devise_invitable
   factory_bot_rails
+  gpx
   griddler
   griddler-sendgrid
   highline
