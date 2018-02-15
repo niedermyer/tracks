@@ -12,12 +12,13 @@ describe TrackPoint, type: :model do
     it { is_expected.to have_db_column(:created_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
 
-    xit { is_expected.to have_db_index(:track_segment_id) }
+    it { is_expected.to have_db_index(:track_segment_id) }
 
-    xit { is_expected.to have_db_foreign_key(:track_segment_id)}
+    it { is_expected.to have_db_foreign_key(:track_segment_id)}
   end
 
   describe 'validations' do
+    it { is_expected.to validate_presence_of(:track_segment) }
     it { is_expected.to validate_presence_of(:latitude) }
     it { is_expected.to validate_presence_of(:longitude) }
     it { is_expected.to validate_presence_of(:elevation_in_meters) }
@@ -25,7 +26,7 @@ describe TrackPoint, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to :track_segment }
+    it { is_expected.to belong_to(:track_segment).inverse_of(:points) }
   end
 
 end
