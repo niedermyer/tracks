@@ -47,6 +47,10 @@ describe User, type: :model do
     it { is_expected.not_to allow_value("invalidemail").for(:email) }
   end
 
+  describe 'associations' do
+    it { is_expected.to have_many(:tracks) }
+  end
+
   describe 'automatically generating #public_id on save' do
     context 'on a new User' do
       let(:user){ build :user }

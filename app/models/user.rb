@@ -8,6 +8,8 @@ class User < ApplicationRecord
          :lockable,
          :invitable
 
+  has_many :tracks
+
   validates :first_name,
             :last_name,
             presence: true

@@ -8,13 +8,13 @@ describe TrackSegment, type: :model do
     it { is_expected.to have_db_column(:created_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
 
-    xit { is_expected.to have_db_index(:track_id) }
+    it { is_expected.to have_db_index(:track_id) }
 
-    xit { is_expected.to have_db_foreign_key(:track_id)}
+    it { is_expected.to have_db_foreign_key(:track_id)}
   end
 
   describe 'validations' do
-    xit { is_expected.to validate_presence_of(:track) }
+    it { is_expected.to validate_presence_of(:track) }
   end
 
   describe 'associations' do

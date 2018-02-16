@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180215212521) do
+ActiveRecord::Schema.define(version: 20180216163752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,17 @@ ActiveRecord::Schema.define(version: 20180215212521) do
     t.integer  "track_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["track_id"], name: "index_track_segments_on_track_id", using: :btree
+  end
+
+  create_table "tracks", force: :cascade do |t|
+    t.string   "import_fingerprint"
+    t.string   "name"
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["user_id"], name: "index_tracks_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -69,4 +80,6 @@ ActiveRecord::Schema.define(version: 20180215212521) do
   end
 
   add_foreign_key "track_points", "track_segments"
+  add_foreign_key "track_segments", "tracks"
+  add_foreign_key "tracks", "users"
 end
