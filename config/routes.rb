@@ -17,6 +17,9 @@ Rails.application.routes.draw do
 
   namespace :user do
     get '/dashboard', to: 'dashboard#show'
+
+    get '/tracks', to: 'tracks#index', as: :tracks
+    get '/tracks/:id', to: 'tracks#show', as: :track
   end
 
   root to: 'user/dashboard#show'

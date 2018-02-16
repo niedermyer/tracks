@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" creator="Minimalist GPS Tracker">
 	<trk>
-		<name>January 31, 2018 at 1:50:25 PM EST</name>
+		<name>TEST TRACK from GPX FILE</name>
 		<trkseg>
-			<trkpt lat="40.800009" lon="-77.904450">
-				<ele>391.066925</ele>
-				<time>2018-01-31T19:03:01Z</time>
+			<trkpt lat="40.000000" lon="-77.000000">
+				<ele>300.000000</ele>
+				<time>2018-01-31T19:00:00Z</time>
 			</trkpt>
-			<trkpt lat="40.799925" lon="-77.904667">
-				<ele>388.799164</ele>
-				<time>2018-01-31T19:03:05Z</time>
+			<trkpt lat="40.000001" lon="-77.000001">
+				<ele>301.000000</ele>
+				<time>2018-01-31T19:00:10Z</time>
 			</trkpt>
-			<trkpt lat="40.799817" lon="-77.904899">
-				<ele>389.893768</ele>
-				<time>2018-01-31T19:03:10Z</time>
+			<trkpt lat="40.000002" lon="-77.000002">
+				<ele>302.000000</ele>
+				<time>2018-01-31T19:00:20Z</time>
 			</trkpt>
 		</trkseg>
 	</trk>

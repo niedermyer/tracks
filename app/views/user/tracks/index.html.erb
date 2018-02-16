@@ -1,0 +1,16 @@
+<h1>Tracks</h1>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <th>Name</th>
+    </thead>
+    <tbody>
+    <% @tracks.each do |track| %>
+      <tr>
+        <td><%= link_to track.name, user_track_path(track) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

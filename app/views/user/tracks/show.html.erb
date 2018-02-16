@@ -1,0 +1,25 @@
+<h1><%= @track.name %></h1>
+
+<h2>Track Points</h2>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <th>&nbsp;</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Elevation (meters)</th>
+      <th>Recorded At</th>
+    </thead>
+    <tbody>
+      <% @track.points.each_with_index do |point, i| %>
+        <tr>
+          <td><%= i %></td>
+          <td><%= point.latitude %></td>
+          <td><%= point.longitude %></td>
+          <td><%= point.elevation_in_meters %></td>
+          <td><%= l(point.recorded_at, format: :long) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
