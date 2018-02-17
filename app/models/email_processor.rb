@@ -61,7 +61,7 @@ class EmailProcessor
 
   def gpx_filename
     raise AttachmentNotFound.new if email.attachments.empty?
-    gpx_file = email.attachments.select{ |a| a.content_type == 'application/gpx+xml' }.first || raise(UnprocessableAttachment.new)
+    gpx_file = email.attachments.select{ |a| a.original_filename.split('.').last == 'gpx' }.first || raise(UnprocessableAttachment.new)
     @gpx_filename ||= gpx_file.tempfile.path
   end
 
