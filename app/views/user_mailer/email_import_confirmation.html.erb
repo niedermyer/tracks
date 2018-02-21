@@ -1,0 +1,24 @@
+<h2 class="greeting">Hi <%= @user.first_name %>,</h2>
+
+<p>Your emailed file was received and processed. Check out the results below.</p>
+
+<hr/>
+
+<p>Processed file: <strong><%= @gpx_filename %></strong></p>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Result</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @results.each do |result| %>
+    <tr class="track import-result-<%= result.status_code %>">
+      <td><%= link_to result.track.name, user_track_url(result.track) %></td>
+      <td class="result-message"><%= result.message %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

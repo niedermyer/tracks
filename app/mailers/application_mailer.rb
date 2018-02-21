@@ -1,4 +1,18 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
+  default from: "Activity Log <no-reply@#{Rails.configuration.x.smtp.url_options['host']}>"
   layout 'mailer'
+
+  private
+
+  def define_host
+    OpenStruct.new(
+          name: 'Activity Log',
+          website_link_label: Rails.configuration.x.smtp.url_options['host'],
+          website_url: root_url
+    )
+  end
+
+  def add_inline_attachments
+    attachments.inline['logo.png'] = File.read(Rails.root.join("app/assets/images/mailers/logo.png"))
+  end
 end

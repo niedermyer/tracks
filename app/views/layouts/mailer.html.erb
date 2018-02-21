@@ -1,13 +1,83 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <style>
-      /* Email styles need to be inline */
-    </style>
-  </head>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= @host.name %></title>
 
-  <body>
-    <%= yield %>
-  </body>
+  <%# https://litmus.com/community/learning/13-foundations-email-coding-101#toc_2 %>
+  <style type="text/css">
+    /* GENERAL EMAIL STYLE RESETS */
+    body, #body-table { height:100% !important; width:100% !important; margin:0; padding:0; }
+    img, a img { border:0; outline:none; text-decoration:none; }
+    .imageFix { display:block; }
+    table, td { border-collapse:collapse; }
+    /* EMAIL CLIENT-SPECIFIC RESETS */
+    .ReadMsgBody{width:100%;} .ExternalClass{width:100%;}
+    .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div{line-height:100%;}
+    table, td{mso-table-lspace:0pt; mso-table-rspace:0pt;}
+    img{-ms-interpolation-mode: bicubic;}
+    body, table, td, p, a, li, blockquote{-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%;}
+  </style>
+
+  <%= stylesheet_link_tag 'mailer', media: 'all' %>
+
+</head>
+
+<body>
+<!--[if mso]>
+<table id="mso-body-table" cellpadding="0" cellspacing="0" border="0" style="padding:0px;margin:0px;width:100%;">
+  <tr><td colspan="3" style="padding:0px;margin:0px;font-size:20px;height:20px;" height="20">&nbsp;</td></tr>
+  <tr>
+    <td style="padding:0px;margin:0px;">&nbsp;</td>
+    <td style="padding:0px;margin:0px;" width="560">
+<![endif]-->
+
+<table id="body-table" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+  <tr>
+    <td id="centered-column" align="center" valign="top">
+
+      <table id="header">
+        <tr>
+          <td class="main-column logo-wrapper">
+            <%= link_to root_url do %>
+              <%= image_tag attachments['logo.png'].url, id: 'logo-header', alt: @host.name, width: '140' %>
+            <% end %>
+          </td>
+        </tr>
+      </table><!-- #header -->
+
+      <table id="main">
+        <tr>
+          <td class="main-column">
+            <%= yield %>
+          </td>
+        </tr>
+      </table><!-- #main -->
+
+      <table id="footer">
+        <tr>
+          <td class="main-column">
+            <%= link_to root_url do %>
+              <%= image_tag attachments['logo.png'].url, id: 'logo-footer', alt: @host.name, width: '70' %>
+            <% end %>
+            <br />
+            <br />
+            &copy; <%= Time.zone.now.year %> <%= @host.name %>
+          </td>
+        </tr>
+      </table><!-- #footer-contact -->
+
+    </td>
+  </tr>
+</table><!-- #body-table -->
+
+<!--[if mso]>
+</td>
+<td style="padding:0px;margin:0px;">&nbsp;</td>
+</tr>
+<tr><td colspan="3" style="padding:0px;margin:0px;font-size:20px;height:20px;" height="20">&nbsp;</td></tr>
+</table>
+<![endif]-->
+</body>
 </html>
