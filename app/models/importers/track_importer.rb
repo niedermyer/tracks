@@ -1,6 +1,4 @@
 class Importers::TrackImporter
-  class DuplicateTrackImport < RuntimeError; end
-
   attr_reader :filename, :user
 
   def initialize(filename, user)
@@ -9,7 +7,7 @@ class Importers::TrackImporter
   end
 
   def import!
-    errors = []
+    results = []
 
     Track.transaction do
       gpx = GPX::GPXFile.new(:gpx_file => filename)
@@ -17,8 +15,8 @@ class Importers::TrackImporter
       gpx.tracks.each do |track|
         md5 = Digest::MD5.hexdigest track.to_s
 
-        if user.tracks.find_by(import_fingerprint: md5)
-          DuplicateTrackImport.new "This track has already been imported"
+        if t = user.tracks.find_by(import_fingerprint: md5)
+          results << IgnoredDuplicateTrackImportResult.new(t)
         else
           t = user.tracks.create(
             import_fingerprint: md5,
@@ -37,9 +35,12 @@ class Importers::TrackImporter
               )
             end
           end
+
+          results << SuccessfulTrackImportResult.new(t)
         end
       end
-
     end
+
+    results
   end
 end
