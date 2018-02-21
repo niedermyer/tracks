@@ -39,9 +39,9 @@ feature 'Importing Tracks via an Emailed GPX file', type: :feature do
     end
 
     # Email is sent to user
-    # open_email(user.email)
-    # expect(current_email.subject).to match /New track imported via emailed GPX/i
-    # expect(current_email.body).to match /check out your new track/i
+    open_email(user.email)
+    expect(current_email.subject).to match /Emailed GPX file was processed/i
+    expect(current_email.body).to match /Check out the results/i
   end
 end
 

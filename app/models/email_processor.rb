@@ -29,7 +29,8 @@ class EmailProcessor
     relevant_to_address_tokens.each do |token|
       begin
         user = User.find_by!(public_id: token)
-        Importers::TrackImporter.new(gpx_filename, user).import!
+        results = Importers::TrackImporter.new(gpx_file_path, user).import!
+        UserMailer.email_import_confirmation(user, gpx_file.original_filename, results).deliver_now
       rescue ActiveRecord::RecordNotFound
         errors << {object: UserNotFound.new, token: token}
       rescue AttachmentNotFound => e
@@ -59,10 +60,13 @@ class EmailProcessor
     @relevant_to_addresses ||= email.to.select{|address| address[:host] == PROCESSING_HOSTNAME}
   end
 
-  def gpx_filename
+  def gpx_file
     raise AttachmentNotFound.new if email.attachments.empty?
-    gpx_file = email.attachments.select{ |a| a.original_filename.split('.').last == 'gpx' }.first || raise(UnprocessableAttachment.new)
-    @gpx_filename ||= gpx_file.tempfile.path
+    @gpx_file ||= email.attachments.select{ |a| a.original_filename.split('.').last == 'gpx' }.first || raise(UnprocessableAttachment.new)
+  end
+
+  def gpx_file_path
+    @gpx_file_path ||= gpx_file.tempfile.path
   end
 
   def email_md5
