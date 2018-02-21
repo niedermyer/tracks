@@ -56,6 +56,10 @@ gem 'griddler-sendgrid'
 # GPX file parser
 gem 'gpx'
 
+# Email styles pre-processor
+gem 'premailer-rails'
+gem 'nokogiri' #premailer-rails needs this explicitly named
+
 
 group :development, :test do
 
