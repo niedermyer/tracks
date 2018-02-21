@@ -30,7 +30,7 @@ feature 'User invitations as an administrator user', type: :feature do
     expect(current_email.from).to include /no-reply/
     expect(current_email.reply_to).to include /no-reply/
     expect(current_email.subject).to eq "Invitation to Luke Niedermyer's Activity Log"
-    expect(current_email).to have_content 'Hello FIRST'
+    expect(current_email).to have_content 'Hi FIRST'
     expect(current_email).to have_content 'Luke Niedermyer has invited you to join Activity Log.'
 
     current_email.click_link I18n.t("devise.mailer.invitation_instructions.accept")

@@ -18,7 +18,7 @@ en:
     mailer:
       invitation_instructions:
         subject: "Invitation to Luke Niedermyer's Activity Log"
-        hello: "Hello %{first_name}!"
+        hello: "Hi %{first_name},"
         someone_invited_you: "Luke Niedermyer has invited you to join <a href='%{url}' target='_blank'>Activity Log</a>. You can accept your invitation through the link below."
         accept: "Accept My Invitation"
         accept_until: "For security reasons, this invitation will expire on %{due_date}."

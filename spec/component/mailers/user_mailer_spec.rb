@@ -1,4 +1,5 @@
 require 'component/component_spec_helper'
+require_relative '_shared_examples_for_default_application_mailer_configuration'
 
 describe UserMailer do
   let(:user) { create :user }
@@ -17,22 +18,19 @@ describe UserMailer do
 
   describe '#email_import_confirmation' do
     let(:email) { UserMailer.email_import_confirmation(user, gpx_filename, results) }
+    let(:body){ email.parts.detect{|part| part.content_type =~ /text\/html/ }.body.raw_source }
+
+    it_behaves_like "a mailer that uses default ApplicationMailer configuration"
 
     it 'sends the email to the user' do
       expect(email.to).to eq [user.email]
     end
-    it 'sends the email from the correct address' do
-      expect(email.from).to eq ["no-reply@#{Rails.configuration.x.smtp.url_options['host']}"]
-    end
-    it 'sends the email with the correct from name' do
-      expect(email.header[:from].value).to match /^Activity Log/
-    end
+
     it 'sends the email with the correct subject' do
       expect(email.subject).to eq "Emailed GPX file was processed"
     end
-    describe 'the message body' do
-      let(:body){ email.parts.detect{|part| part.content_type =~ /text\/html/ }.body.raw_source }
 
+    describe 'the message body' do
       it 'mentions the user by name' do
         expect(body).to match user.first_name
       end
