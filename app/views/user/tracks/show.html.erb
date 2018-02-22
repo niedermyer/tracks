@@ -12,8 +12,8 @@
     </thead>
     <tbody>
       <% @track.points.each_with_index do |point, i| %>
-        <tr>
-          <td><%= i %></td>
+        <tr id="<%= dom_id point %>">
+          <td><%= i+1 %></td>
           <td><%= point.latitude %></td>
           <td><%= point.longitude %></td>
           <td><%= point.elevation_in_meters %></td>

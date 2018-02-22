@@ -21,6 +21,11 @@
                 Dashboard <%== '<span class="sr-only">(current)</span>' if current_page?(user_dashboard_path) %>
               <% end %>
             </li>
+            <li class="<%= 'active' if controller_name == 'tracks' %>" >
+              <%= link_to user_tracks_path do %>
+                Tracks <%== '<span class="sr-only">(current)</span>' if current_page?(user_tracks_path) %>
+              <% end %>
+            </li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">

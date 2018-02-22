@@ -7,7 +7,7 @@
     </thead>
     <tbody>
     <% @tracks.each do |track| %>
-      <tr>
+      <tr id="<%= dom_id track %>">
         <td><%= link_to track.name, user_track_path(track) %></td>
       </tr>
     <% end %>
