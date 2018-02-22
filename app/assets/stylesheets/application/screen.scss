@@ -11,3 +11,47 @@
     width: 200px;
   }
 }
+
+header {
+  .navbar {
+    font-weight: $font-weight-bold;
+    border-bottom: 2px solid $brand-secondary;
+    background-color: $off-white;
+  }
+
+  .navbar-brand {
+    margin-right: 15px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: $grid-gutter-width/2 12px;
+    background-size: 140px auto;
+    height: 60px;
+    width: 170px;
+    background-image: image-url('mailers/logo.png');
+  }
+
+  //.navbar-default {
+  //  .navbar-nav {
+  //    &.hoverable {
+  //      > li {
+  //        > a {
+  //
+  //          border-top: 2px solid $navbar-default-bg;
+  //          border-bottom: 2px solid $navbar-default-bg;
+  //          transition: all .15s ease-in-out;
+  //
+  //          &:hover, &:focus {
+  //            border-bottom-color: $brand-primary;
+  //          }
+  //        }
+  //      }
+  //
+  //      > .active {
+  //        > a, a:hover, a:focus {
+  //          border-bottom-color: $brand-primary;
+  //        }
+  //      }
+  //    }
+  //  }
+  //}
+}

@@ -15,7 +15,7 @@ $off-white: #fafafa;
 
 // Bootstrap Variable Overrides
 $brand-primary: #1c67e3;
-$brand-secondary: #124190;
+$brand-secondary: #036;
 
 $gray-white: $off-white;
 $gray-lightest: #e7e7e7;
@@ -26,10 +26,6 @@ $gray: #80878c;
 $gray-dark: #676767;
 $gray-darker: #373738;
 $gray-darkest: #2e2e2e;
-
-// Navbar
-$navbar-margin-bottom: 0;
-$navbar-border-radius: 0;
 
 
 // Fonts
@@ -62,7 +58,28 @@ $alert-link-font-weight: $font-weight-normal;
 $badge-font-weight: $font-weight-normal;
 $close-font-weight: $font-weight-normal;
 
+//$line-height-computed: floor(($font-size-base * $line-height-base));
+
 $text-color: $gray-darkest;
+
+
+// Navbar
+$navbar-margin-bottom: 15px;
+$navbar-border-radius: 0;
+$navbar-height: 60px;
+//$navbar-padding-vertical: ((($navbar-height - $line-height-computed) - 4) / 2); // we substract 4 to allow for borders
+
+// Navbar default
+$navbar-default-bg: transparent;
+$navbar-default-border: transparent;
+$navbar-default-link-color: $gray;
+$navbar-default-link-hover-color: $brand-primary;
+$navbar-default-link-active-color: $brand-secondary;
+$navbar-default-toggle-hover-bg: $off-white;
+$navbar-default-toggle-icon-bar-bg: $brand-secondary;
+$navbar-default-toggle-border-color: transparent;
+$navbar-default-brand-color: $brand-primary;
+
 
 $input-bg: $off-white;
 $input-border: $gray-lighter;
@@ -82,3 +99,52 @@ $hr-border: $gray-lightest;
 $border-radius-small: 0px;
 $border-radius-base: 0px;
 $border-radius-large: 2px;
+
+
+// Custom Mixins
+
+@mixin triangle($direction, $color, $size: 1em, $ratio: 0.866) {
+  @if not index(top right bottom left, $direction) {
+    @error "Direction must be either `top`, `right`, `bottom` or `left`.";
+  }
+
+  display: inline-block;
+  width: 0;
+  height: 0;
+  content: '';
+  z-index: 2;
+  border-#{opposite-position($direction)}: ($size * $ratio) solid $color;
+
+  $perpendicular-borders: $size solid transparent;
+
+  @if $direction == top or $direction == bottom {
+    border-left:   $perpendicular-borders;
+    border-right:  $perpendicular-borders;
+  } @else if $direction == right or $direction == left {
+    border-bottom: $perpendicular-borders;
+    border-top:    $perpendicular-borders;
+  }
+}
+
+@function opposite-position($directions) {
+  $opposite-directions: ();
+  $direction-map: (
+          'top':    'bottom',
+          'right':  'left',
+          'bottom': 'top',
+          'left':   'right',
+          'center': 'center'
+  );
+
+  @each $direction in $directions {
+    $direction: to-lower-case($direction);
+
+    @if map-has-key($direction-map, $direction) {
+      $opposite-directions: append($opposite-directions, unquote(map-get($direction-map, $direction)));
+    } @else {
+      @warn "No opposite direction can be found for `#{$direction}`. Direction omitted.";
+    }
+  }
+
+  @return $opposite-directions;
+}
