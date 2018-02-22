@@ -15,6 +15,7 @@ class User < ApplicationRecord
             presence: true
 
   before_save :set_public_id
+  after_invitation_accepted :notify_inviter
 
   def full_name
     "#{first_name} #{last_name}".squish
@@ -37,5 +38,9 @@ class User < ApplicationRecord
       random_id = SecureRandom.hex(6)
       break random_id unless User.exists?(public_id: random_id)
     end
+  end
+
+  def notify_inviter
+    UserMailer.invitation_accepted(self).deliver_now
   end
 end

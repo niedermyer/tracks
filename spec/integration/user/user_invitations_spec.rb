@@ -25,6 +25,7 @@ feature 'User invitations as an administrator user', type: :feature do
       expect(page).to have_link 'new_user@example.com'
     end
 
+    # Invitee is sent invitation
     open_email 'new_user@example.com'
 
     expect(current_email.from).to include /no-reply/
@@ -33,6 +34,7 @@ feature 'User invitations as an administrator user', type: :feature do
     expect(current_email).to have_content 'Hi FIRST'
     expect(current_email).to have_content "Luke Niedermyer has invited you to join #{Rails.configuration.x.application_name.title}."
 
+    # Invitee accepts invitation
     current_email.click_link I18n.t("devise.mailer.invitation_instructions.accept")
 
     expect(page.current_path).to eq accept_user_invitation_path
@@ -41,6 +43,7 @@ feature 'User invitations as an administrator user', type: :feature do
     expect(find_field('First name').value).to eq 'FIRST'
     expect(find_field('Last name').value).to eq 'LAST'
 
+    # Invitee edits personal info during accept
     fill_in 'First name', with: 'NEWFIRST'
     fill_in 'Last name', with: 'UPDATEDLAST'
     fill_in 'Password', with: 'k33pitsecret', match: :prefer_exact
@@ -50,10 +53,18 @@ feature 'User invitations as an administrator user', type: :feature do
     expect(page).to have_content I18n.t('devise.invitations.updated')
     expect(page.current_path).to eq root_path
 
+    # Invitee's record is updated
     User.find_by(email: 'new_user@example.com').tap do |u|
       expect(u.first_name).to eq 'NEWFIRST'
       expect(u.last_name).to eq 'UPDATEDLAST'
     end
+
+    # Inviter is sent notification of acceptance
+    open_email admin.email
+
+    expect(current_email.subject).to eq "NEWFIRST UPDATEDLAST has Accepted Your Invitation to Tracks"
+    expect(current_email).to have_content 'the following invitee has accepted your invitation to Tracks'
+
   end
 
   scenario 'invite another user with errors' do

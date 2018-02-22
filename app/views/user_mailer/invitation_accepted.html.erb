@@ -1,0 +1,32 @@
+<h2 class="greeting">Hi <%= @inviter.first_name %>,</h2>
+
+<p>This is to notify you that the following invitee has accepted your invitation to Tracks.</p>
+
+<hr/>
+
+<h2><%= @user.full_name %></h2>
+
+<table class="attributes-table">
+  <tbody>
+  <tr>
+    <th scope="row">First Name</th>
+    <td><%= @user.first_name %></td>
+  </tr>
+  <tr>
+    <th scope="row">Last Name</th>
+    <td><%= @user.last_name %></td>
+  </tr>
+  <tr>
+    <th scope="row">Email</th>
+    <td><%= mail_to @user.email %></td>
+  </tr>
+  <tr>
+    <th scope="row">Invitation Sent</th>
+    <td><%= l(@user.invitation_sent_at, format: :long) %></td>
+  </tr>
+  <tr>
+    <th scope="row">Invitation Accepted</th>
+    <td><%= l(@user.invitation_accepted_at, format: :long) %></td>
+  </tr>
+  </tbody>
+</table>

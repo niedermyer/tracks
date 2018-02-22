@@ -11,6 +11,10 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.email_import_confirmation(user, 'track_file.gpx', results)
   end
 
+  def invitation_accepted
+    UserMailer.invitation_accepted(user)
+  end
+
   private
 
   def user

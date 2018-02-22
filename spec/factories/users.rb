@@ -5,6 +5,7 @@ FactoryBot.define do
     sequence(:email) {|sn| "user_#{sn}@example.com" }
     password 'secretSecret123'
     password_confirmation 'secretSecret123'
+    invitation_sent_at Time.zone.now
     invitation_accepted_at Time.zone.now
     invitation_token nil
 

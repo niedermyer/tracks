@@ -93,6 +93,7 @@ hr {
     margin-bottom: 15px;
 
     &.greeting {
+      font-size: 18px;
       color: $text-color;
       margin: 0 0 20px;
     }
@@ -147,6 +148,21 @@ hr {
         padding-top: 4px;
         border-top: 3px solid $gray-lightest;
         border-bottom: 0;
+      }
+    }
+
+    &.attributes-table {
+      th {
+        text-align: right;
+        border-right: 1px solid $gray-lightest;
+        width: 120px;
+        font-weight: $font-weight-bold;
+      }
+
+      tbody {
+        > tr:nth-of-type(odd) {
+          background-color: $off-white;
+        }
       }
     }
   }
