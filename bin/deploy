@@ -69,5 +69,5 @@ end
 
 # :shipit:
 on hosts do |host|
-  execute "/var/www/sites/production.activity-log.niedermyer.net/bin/deploy", tag
+  execute "/var/www/sites/production.tracks.niedermyer.net/bin/deploy", tag
 end

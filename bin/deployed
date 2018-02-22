@@ -34,5 +34,5 @@ end
 
 # Print what release each matching machine is on
 on hosts do |host|
-  execute "cat /var/www/sites/production.activity-log.niedermyer.net/current/RELEASE"
+  execute "cat /var/www/sites/production.tracks.niedermyer.net/current/RELEASE"
 end
