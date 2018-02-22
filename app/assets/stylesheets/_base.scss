@@ -12,6 +12,7 @@
 @import "declarations";
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "environment_flag";
 
 body {
   min-width: 320px;

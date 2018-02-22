@@ -60,6 +60,8 @@ gem 'gpx'
 gem 'premailer-rails'
 gem 'nokogiri' #premailer-rails needs this explicitly named
 
+# Visual indicator of the current rails environment
+gem 'environment_flag'
 
 group :development, :test do
 
