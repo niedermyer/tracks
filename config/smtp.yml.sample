@@ -1,11 +1,11 @@
 development:
   url_options:
     protocol: https
-    host: activity-log.test
+    host: tracks.test
   settings:
     user_name: mail-only-user
     password: s3cr3t!
-    domain: activity-log.test
+    domain: tracks.test
     address: smtp.sendgrid.net
     port: 587
     authentication: plain

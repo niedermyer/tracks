@@ -9,7 +9,7 @@ module DevelopmentSeedsHelpers
   )
 
   def email_hostname
-    "activity-log.test"
+    "tracks.test"
   end
 
   def seed_data_file name

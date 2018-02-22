@@ -5,8 +5,8 @@ default: &default
 
 development:
   <<: *default
-  database: activity_log_development
+  database: tracks_development
 
 test:
   <<: *default
-  database: activity_log_test
+  database: tracks_test
