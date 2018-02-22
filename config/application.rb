@@ -9,6 +9,9 @@ Bundler.require(*Rails.groups)
 module ActivityLog
   class Application < Rails::Application
 
+    config.x.application_name.title = 'Activity Log'
+    config.x.application_name.parameter = config.x.application_name.title.parameterize
+
     config.time_zone = 'Eastern Time (US & Canada)'
 
     # Load all of our configuration files into Rails.configuration.x.* objects.

@@ -14,7 +14,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = "Activity Log <no-reply@#{Rails.configuration.x.smtp.url_options['host']}>"
+  config.mailer_sender = "#{Rails.configuration.x.application_name.title} <no-reply@#{Rails.configuration.x.smtp.url_options['host']}>"
 
   # Configure the class responsible to send e-mails.
   config.mailer = 'CustomDeviseMailer'

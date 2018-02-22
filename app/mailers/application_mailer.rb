@@ -1,12 +1,12 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "Activity Log <no-reply@#{Rails.configuration.x.smtp.url_options['host']}>"
+  default from: "#{Rails.configuration.x.application_name.title} <no-reply@#{Rails.configuration.x.smtp.url_options['host']}>"
   layout 'mailer'
 
   private
 
   def define_host
     OpenStruct.new(
-          name: 'Activity Log',
+          name: Rails.configuration.x.application_name.title,
           website_link_label: Rails.configuration.x.smtp.url_options['host'],
           website_url: root_url
     )
