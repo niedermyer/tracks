@@ -6,10 +6,10 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module ActivityLog
+module Tracks
   class Application < Rails::Application
 
-    config.x.application_name.title = 'Activity Log'
+    config.x.application_name.title = 'Tracks'
     config.x.application_name.parameter = config.x.application_name.title.parameterize
 
     config.time_zone = 'Eastern Time (US & Canada)'
