@@ -1,4 +1,7 @@
+require Rails.root.join('db/seeds/development/development_seeds_helpers')
+
 class CustomDeviseMailerPreview < ActionMailer::Preview
+  include DevelopmentSeedsHelpers
 
   def invitation_instructions
     CustomDeviseMailer.invitation_instructions(pending_user, 'faketoken', {})
@@ -19,10 +22,10 @@ class CustomDeviseMailerPreview < ActionMailer::Preview
   private
 
   def user
-    @user ||= User.find_by(email: 'user@activity-log.test')
+    @user ||= seeded_user_with_tracks
   end
 
   def pending_user
-    @user ||= User.find_by(email: 'pending@tracks.test')
+    @pending_user ||= seeded_pending_user
   end
 end
