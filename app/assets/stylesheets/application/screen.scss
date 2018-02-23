@@ -1,5 +1,23 @@
 @import "base";
 
+.form-control[disabled],
+.form-control.disabled,
+.form-control[readonly],
+fieldset[disabled] .form-control {
+  background-color: $input-bg-disabled;
+  border-color: $input-bg-disabled;
+  box-shadow: none;
+}
+
+.processing-email-output {
+  display: inline-block;
+  cursor: pointer;
+  width: 330px;
+  line-height: $input-height-base - 2;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .index-table {
   font-size: $font-size-base-16px;
 }
