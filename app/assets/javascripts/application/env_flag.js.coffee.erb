@@ -1,4 +1,4 @@
 #= require environment_flag
 
-$(document).ready ->
+$(document).on 'ready turbolinks:load', ->
   $('body').environmentFlag '<%= Rails.env %>'
