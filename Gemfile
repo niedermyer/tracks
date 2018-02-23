@@ -63,6 +63,9 @@ gem 'nokogiri' #premailer-rails needs this explicitly named
 # Visual indicator of the current rails environment
 gem 'environment_flag'
 
+# Google polyline encoding/decoding
+gem 'polylines'
+
 group :development, :test do
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

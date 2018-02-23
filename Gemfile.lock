@@ -144,6 +144,7 @@ GEM
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
+    polylines (0.3.0)
     premailer (1.11.1)
       addressable
       css_parser (>= 1.6.0)
@@ -297,6 +298,7 @@ DEPENDENCIES
   nokogiri
   pg (~> 0.18)
   poltergeist
+  polylines
   premailer-rails
   puma (~> 3.0)
   rails (~> 5.0.6)
