@@ -10,6 +10,8 @@ class TrackPoint < ApplicationRecord
             :recorded_at,
             presence: true
 
+  default_scope { order(recorded_at: :asc) }
+
   def latitude_longitude
     [latitude, longitude]
   end

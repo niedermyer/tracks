@@ -13,8 +13,9 @@ describe TrackPoint, type: :model do
     it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
 
     it { is_expected.to have_db_index(:track_segment_id) }
+    it { is_expected.to have_db_index(:recorded_at) }
 
-    it { is_expected.to have_db_foreign_key(:track_segment_id)}
+    it { is_expected.to have_db_foreign_key(:track_segment_id) }
   end
 
   describe 'validations' do
@@ -34,5 +35,20 @@ describe TrackPoint, type: :model do
     let(:point) { build :track_point }
 
     it { is_expected.to eq [point.latitude, point.longitude] }
+  end
+
+  describe 'scopes' do
+    let!(:track) { create :track, segments: [segment] }
+    let(:segment) { build :track_segment, track: nil, points: [second, first, third] }
+    let(:second) { build :track_point, track_segment: nil, recorded_at: now - 1.hour }
+    let(:first)  { build :track_point, track_segment: nil, recorded_at: now - 2.hours }
+    let(:third)  { build :track_point, track_segment: nil, recorded_at: now }
+    let(:now) { Time.zone.now }
+
+    describe 'default_scope' do
+      it 'sorts by recorded_at ascending' do
+        expect(TrackPoint.all).to eq [first, second, third]
+      end
+    end
   end
 end
