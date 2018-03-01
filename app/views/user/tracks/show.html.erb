@@ -1,25 +1,25 @@
-<h1><%= @track.name %></h1>
+<div id="track-show-container" data-track-id="<%= @track.id %>" >
 
-<h2>Track Points</h2>
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <th>&nbsp;</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
-      <th>Elevation (meters)</th>
-      <th>Recorded At</th>
-    </thead>
-    <tbody>
-      <% @track.points.each_with_index do |point, i| %>
-        <tr id="<%= dom_id point %>">
-          <td><%= i+1 %></td>
-          <td><%= point.latitude %></td>
-          <td><%= point.longitude %></td>
-          <td><%= point.elevation_in_meters %></td>
-          <td><%= l(point.recorded_at, format: :long) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="track-details">
+    <h1><%= @track.name %></h1>
+    <h2>Track Points</h2>
+    <div class="points">
+      <ol>
+        <% @track.points.each_with_index do |point, i| %>
+          <li id="<%= dom_id point %>" class="point">
+            <a href='#points/<%= point.id %>' class="map-point" data-id="<%= point.id %>">
+              <%= l(point.recorded_at, format: :h_mm_ss) %>
+            </a>
+            <span class="date">- <%= point.recorded_at.strftime('%b %-d') %></span>
+          </li>
+        <% end %>
+      </ol>
+    </div>
+
+  </div>
+
+  <div class="track-map">
+    <div id="g-map"></div>
+  </div>
+
 </div>

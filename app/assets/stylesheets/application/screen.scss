@@ -35,6 +35,7 @@ header {
     font-weight: $font-weight-bold;
     border-bottom: 2px solid $brand-secondary;
     background-color: $off-white;
+    z-index: 200;
   }
 
   .navbar-brand {
@@ -72,4 +73,112 @@ header {
   //    }
   //  }
   //}
+}
+
+body.tracks.show {
+  #main {
+    position: absolute;
+    width: 100%;
+    top: 79px;
+    bottom: 0;
+  }
+}
+
+.point-info-window {
+  padding: 0 0 5px 20px;
+
+  .date,
+  .time {
+    text-align: center;
+  }
+
+  .date {
+    font-size: 14px;
+  }
+
+  .time {
+    margin-bottom: 15px;
+  }
+
+  .attributes-table {
+    font-size: 12px;
+    border-bottom: 1px solid $table-border-color;
+
+    td, th {
+      padding: 4px 8px;
+    }
+
+    th {
+      width: 94px;
+    }
+  }
+}
+
+#track-show-container {
+  position: absolute;
+  width: 100%;
+  top: -15px;
+  bottom: 0;
+
+  .track-details {
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 320px;
+    padding: 0 15px;
+    max-width: 85%;
+    background-color: rgba(255,255,255,0.94);
+    transition: left 0.25s ease-in-out;
+
+    h1 {
+      font-size: $font-size-base-20px;
+    }
+
+    h2 {
+      font-size: $font-size-base-16px;
+    }
+
+    .points {
+      height: 600px;
+      position: relative;
+      bottom: 0;
+      overflow: auto;
+
+      .point {
+        .date {
+          color: $gray-lighter;
+        }
+      }
+    }
+  }
+
+  .track-map {
+    #g-map {
+      background-color: #e5e3df;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 320px;
+      right: 0;
+    }
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  #track-show-container {
+
+    .track-details {
+      left: -320px;
+      bottom: 30px;
+    }
+
+    .track-map {
+      #g-map {
+        left: 0;
+      }
+    }
+  }
 }

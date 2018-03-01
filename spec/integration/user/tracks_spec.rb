@@ -34,7 +34,7 @@ feature 'Tracks management', type: :feature do
     end
   end
 
-  scenario 'see one track' do
+  scenario 'see one track', js: true do
     within dom_id_selector(track_2) do
       click_link 'Track Two'
     end
@@ -43,22 +43,31 @@ feature 'Tracks management', type: :feature do
       expect(page).to have_content track_2.name
     end
 
+    sleep(0.1) until page.evaluate_script('$.active') == 0
+    sleep 1
+    expect(page).to have_css '#g-map .gm-style'
+
     first_point = track_2.points.first
     within dom_id_selector(first_point) do
-      expect(page).to have_content first_point.latitude
-      expect(page).to have_content first_point.longitude
-      expect(page).to have_content first_point.elevation_in_meters
-      expect(page).to have_content I18n.l(first_point.recorded_at, format: :long)
+      expect(page).to have_link I18n.l(first_point.recorded_at, format: :h_mm_ss)
     end
 
     last_point = track_2.points.last
     within dom_id_selector(last_point) do
-      expect(page).to have_content last_point.latitude
-      expect(page).to have_content last_point.longitude
-      expect(page).to have_content last_point.elevation_in_meters
-      expect(page).to have_content I18n.l(last_point.recorded_at, format: :long)
+      expect(page).to have_link I18n.l(last_point.recorded_at, format: :h_mm_ss)
     end
 
+    # Google Maps link works
+    expect(page).not_to have_content first_point.latitude
+    expect(page).not_to have_content first_point.longitude
+    expect(page).not_to have_content first_point.elevation_in_meters
+    within dom_id_selector(first_point) do
+      click_link I18n.l(first_point.recorded_at, format: :h_mm_ss)
+    end
+
+    expect(page).to have_content first_point.latitude
+    expect(page).to have_content first_point.longitude
+    expect(page).to have_content first_point.elevation_in_meters
   end
 
 end

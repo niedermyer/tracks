@@ -29,4 +29,10 @@ describe TrackPoint, type: :model do
     it { is_expected.to belong_to(:track_segment).inverse_of(:points) }
   end
 
+  describe '#latitude_longitude' do
+    subject { point.latitude_longitude }
+    let(:point) { build :track_point }
+
+    it { is_expected.to eq [point.latitude, point.longitude] }
+  end
 end

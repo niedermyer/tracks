@@ -6,5 +6,12 @@ class User::TracksController < UsersController
 
   def show
     @track = Track.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json {
+        render :json => @track.to_json(methods: [:polyline, :points])
+      }
+    end
   end
 end

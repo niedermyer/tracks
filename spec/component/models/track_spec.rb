@@ -26,4 +26,26 @@ describe Track, type: :model do
     it { is_expected.to have_many(:points).through(:segments).class_name('TrackPoint') }
   end
 
+  describe '#polyline_coordinates' do
+    let(:track) { create :track, segments: [segment] }
+    let(:segment) { build :track_segment, track: nil, points: [point_1, point_2] }
+    let(:point_1) { build :track_point, track_segment: nil }
+    let(:point_2) { build :track_point, track_segment: nil }
+
+    it "returns an sequential array of the track's points' latitudes_longitude" do
+      expect(track.polyline_coordinates).to eq [ point_1.latitude_longitude, point_2.latitude_longitude]
+    end
+  end
+
+  describe '#polyline' do
+    let(:track) { create :track }
+
+    before do
+      allow(Polylines::Encoder).to receive(:encode_points).with(track.polyline_coordinates).and_return 'encoded polyline'
+    end
+
+    it "the encoded polyline" do
+      expect(track.polyline).to eq 'encoded polyline'
+    end
+  end
 end

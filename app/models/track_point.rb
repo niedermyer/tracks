@@ -9,4 +9,8 @@ class TrackPoint < ApplicationRecord
             :elevation_in_meters,
             :recorded_at,
             presence: true
+
+  def latitude_longitude
+    [latitude, longitude]
+  end
 end

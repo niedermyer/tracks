@@ -24,6 +24,7 @@ en:
   time:
     formats:
       long: "%B %-d, %Y at %-I:%M %P"
+      h_mm_ss: "%-I:%M:%S %P"
 
   user:
     confirmations:

@@ -11,4 +11,12 @@ class Track < ApplicationRecord
 
   validates :user,
             presence: true
+
+  def polyline_coordinates
+    points.map{|p| p.latitude_longitude }
+  end
+
+  def polyline
+    Polylines::Encoder.encode_points(polyline_coordinates)
+  end
 end
