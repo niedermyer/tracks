@@ -1,4 +1,4 @@
-$(document).on 'ready turbolinks:load', ->
+$(document).on 'turbolinks:load', ->
 
   $('span.processing-email-output').click ->
     $this = $(this)
