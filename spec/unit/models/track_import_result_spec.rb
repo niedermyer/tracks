@@ -28,7 +28,7 @@ describe SuccessfulTrackImportResult do
   end
 end
 
-describe SuccessfulTrackImportResult do
+describe IgnoredDuplicateTrackImportResult do
   subject(:result) { IgnoredDuplicateTrackImportResult.new(track) }
   let(:track) { instance_double 'Track' }
   it_behaves_like 'a track import result'
