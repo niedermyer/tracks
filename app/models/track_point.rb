@@ -15,4 +15,8 @@ class TrackPoint < ApplicationRecord
   def latitude_longitude
     [latitude, longitude]
   end
+
+  def rounded_elevation
+    elevation_in_meters.round(2)
+  end
 end

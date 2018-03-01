@@ -10,7 +10,14 @@ class User::TracksController < UsersController
     respond_to do |format|
       format.html
       format.json {
-        render :json => @track.to_json(methods: [:polyline, :points])
+        render :json => @track.to_json(
+          methods: [:polyline],
+          include: {
+            points: {
+              methods: [:rounded_elevation]
+            }
+          }
+        )
       }
     end
   end

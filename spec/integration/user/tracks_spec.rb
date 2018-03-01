@@ -67,7 +67,7 @@ feature 'Tracks management', type: :feature do
 
     expect(page).to have_content first_point.latitude
     expect(page).to have_content first_point.longitude
-    expect(page).to have_content first_point.elevation_in_meters
+    expect(page).to have_content first_point.rounded_elevation
   end
 
 end

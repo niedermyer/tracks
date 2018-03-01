@@ -65,7 +65,7 @@ App.initialize_map = () ->
     )
     recorded_date = moment(point.recorded_at)
     formatted_date_time = '<h3 class="date">' + recorded_date.format("MMMM Do, Y") + '</h3><p class="time">' + recorded_date.format("h:mm:ss a") + '</p>'
-    content = '<div class="point-info-window">' + formatted_date_time + '<table class="table table-striped attributes-table"><tbody><tr><th scope="row">Lat, Lng</th><td>' + point.latitude + ', ' + point.longitude + '</td></tr><tr><th scope="row">Elevation (m)</th><td>' + point.elevation_in_meters + '</td></tr></tbody></table></div>'
+    content = '<div class="point-info-window">' + formatted_date_time + '<table class="table table-striped attributes-table"><tbody><tr><th scope="row">Lat, Lng</th><td>' + point.latitude + ', ' + point.longitude + '</td></tr><tr><th scope="row">Elevation (m)</th><td>' + point.rounded_elevation + '</td></tr></tbody></table></div>'
     markers[point.id] = { object: marker, info: content}
     marker.addListener 'click', (event) ->
       display_marker(markers[point.id])
