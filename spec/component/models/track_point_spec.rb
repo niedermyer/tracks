@@ -30,13 +30,6 @@ describe TrackPoint, type: :model do
     it { is_expected.to belong_to(:track_segment).inverse_of(:points) }
   end
 
-  describe '#latitude_longitude' do
-    subject { point.latitude_longitude }
-    let(:point) { build :track_point }
-
-    it { is_expected.to eq [point.latitude, point.longitude] }
-  end
-
   describe 'scopes' do
     let!(:track) { create :track, segments: [segment] }
     let(:segment) { build :track_segment, track: nil, points: [second, first, third] }
@@ -49,6 +42,33 @@ describe TrackPoint, type: :model do
       it 'sorts by recorded_at ascending' do
         expect(TrackPoint.all).to eq [first, second, third]
       end
+    end
+  end
+
+  describe '#latitude_longitude' do
+    subject { point.latitude_longitude }
+    let(:point) { build :track_point }
+
+    it { is_expected.to eq [point.latitude, point.longitude] }
+  end
+
+  describe '#rounded_elevation' do
+    subject { point.rounded_elevation }
+    let(:point) { build :track_point, elevation: elevation }
+
+    context 'when elevation is 0.555' do
+      let(:elevation) { BigDecimal('0.555') }
+      it { is_expected.to eq BigDecimal('0.56') }
+    end
+
+    context 'when elevation is 1.005' do
+      let(:elevation) { BigDecimal('1.005') }
+      it { is_expected.to eq BigDecimal('1.01') }
+    end
+
+    context 'when elevation is 1.999' do
+      let(:elevation) { BigDecimal('1.999') }
+      it { is_expected.to eq BigDecimal('2') }
     end
   end
 end
