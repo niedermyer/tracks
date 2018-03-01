@@ -57,7 +57,7 @@ class EmailProcessor
   end
 
   def relevant_to_addresses
-    @relevant_to_addresses ||= email.to.select{|address| address[:host] == PROCESSING_HOSTNAME}
+    @relevant_to_addresses ||= email.to.select{ |address| address[:host] == PROCESSING_HOSTNAME }
   end
 
   def gpx_file
