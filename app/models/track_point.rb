@@ -6,7 +6,7 @@ class TrackPoint < ApplicationRecord
   validates :track_segment,
             :latitude,
             :longitude,
-            :elevation_in_meters,
+            :elevation,
             :recorded_at,
             presence: true
 
@@ -17,6 +17,6 @@ class TrackPoint < ApplicationRecord
   end
 
   def rounded_elevation
-    elevation_in_meters.round(2)
+    elevation.round(2)
   end
 end

@@ -10,19 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180301202756) do
+ActiveRecord::Schema.define(version: 20180301210933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "track_points", force: :cascade do |t|
-    t.decimal  "latitude",            precision: 10, scale: 6
-    t.decimal  "longitude",           precision: 10, scale: 6
-    t.decimal  "elevation_in_meters", precision: 10, scale: 6
+    t.decimal  "latitude",         precision: 10, scale: 6
+    t.decimal  "longitude",        precision: 10, scale: 6
+    t.decimal  "elevation",        precision: 10, scale: 6
     t.datetime "recorded_at"
     t.integer  "track_segment_id"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.index ["recorded_at"], name: "index_track_points_on_recorded_at", using: :btree
     t.index ["track_segment_id"], name: "index_track_points_on_track_segment_id", using: :btree
   end

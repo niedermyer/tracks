@@ -32,7 +32,7 @@ describe Importers::TrackImporter do
         track.segments[0].points.each_with_index do |point, i|
           expect(point.latitude).to eq BigDecimal("40.00000#{i}")
           expect(point.longitude).to eq BigDecimal("-77.00000#{i}")
-          expect(point.elevation_in_meters).to eq BigDecimal("30#{i}.000000")
+          expect(point.elevation).to eq BigDecimal("30#{i}.000000")
           expect(point.recorded_at).to eq Time.zone.local(2018, 1, 31, 14, 00, "#{i}0".to_i )
         end
       end
@@ -66,13 +66,13 @@ describe Importers::TrackImporter do
       # Find an track point created by the import and sanity check
       point = TrackPoint.find_by(latitude: BigDecimal('40.000000'))
       expect(point.longitude).to eq BigDecimal('-77.000000')
-      expect(point.elevation_in_meters).to eq BigDecimal('300.000000')
+      expect(point.elevation).to eq BigDecimal('300.000000')
       expect(point.recorded_at).to eq Time.zone.local(2018, 1, 31, 14, 00, 00)
 
       # Update the record
       point.update_column(:latitude, BigDecimal('22.000000'))
       point.update_column(:longitude, BigDecimal('-88.000000'))
-      point.update_column(:elevation_in_meters, BigDecimal('0.000000'))
+      point.update_column(:elevation, BigDecimal('0.000000'))
       point.update_column(:recorded_at, Time.zone.local(2017, 2, 1, 00, 00, 00))
 
       # Re-import
@@ -81,7 +81,7 @@ describe Importers::TrackImporter do
 
       expect(point.latitude).to eq BigDecimal('22.000000')
       expect(point.longitude).to eq BigDecimal('-88.000000')
-      expect(point.elevation_in_meters).to eq BigDecimal('0.000000')
+      expect(point.elevation).to eq BigDecimal('0.000000')
       expect(point.recorded_at).to eq Time.zone.local(2017, 2, 1, 00, 00, 00)
     end
 

@@ -34,7 +34,7 @@ feature 'Importing Tracks via an Emailed GPX file', type: :feature do
     t.segments[0].points.each do |point|
       expect(point.latitude).to be_present
       expect(point.longitude).to be_present
-      expect(point.elevation_in_meters).to be_present
+      expect(point.elevation).to be_present
       expect(point.recorded_at).to be_present
     end
 

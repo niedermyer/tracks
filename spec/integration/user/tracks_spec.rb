@@ -60,7 +60,7 @@ feature 'Tracks management', type: :feature do
     # Google Maps link works
     expect(page).not_to have_content first_point.latitude
     expect(page).not_to have_content first_point.longitude
-    expect(page).not_to have_content first_point.elevation_in_meters
+    expect(page).not_to have_content first_point.rounded_elevation
     within dom_id_selector(first_point) do
       click_link I18n.l(first_point.recorded_at, format: :h_mm_ss)
     end

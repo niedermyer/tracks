@@ -30,7 +30,7 @@ class Importers::TrackImporter
               s.points.create(
                 latitude: point.lat,
                 longitude: point.lon,
-                elevation_in_meters: point.elevation,
+                elevation: point.elevation,
                 recorded_at: point.time
               )
             end
