@@ -4,7 +4,7 @@ describe Importers::TrackImporter do
   subject(:importer) { Importers::TrackImporter.new(filename, user) }
   let(:user) { create :user }
   let(:filename) { fixture 'track.gpx' }
-  let(:md5) { '665883018cce3116fca9e6b93cf0444d' }
+  let(:md5) { '44eeb323d0321b18480d947db9797611' }
   let(:imported_result) { double 'imported track import result' }
 
   before do

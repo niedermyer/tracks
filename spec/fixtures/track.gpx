@@ -3,17 +3,17 @@
 	<trk>
 		<name>TEST TRACK from GPX FILE</name>
 		<trkseg>
-			<trkpt lat="40.000002" lon="-77.000002">
-				<ele>302.000000</ele>
-				<time>2018-01-31T19:00:20Z</time>
+			<trkpt lat="40.000000" lon="-77.000000">
+				<ele>300.000000</ele>
+				<time>2018-01-31T19:00:00Z</time>
 			</trkpt>
 			<trkpt lat="40.000001" lon="-77.000001">
 				<ele>301.000000</ele>
 				<time>2018-01-31T19:00:10Z</time>
 			</trkpt>
-			<trkpt lat="40.000000" lon="-77.000000">
-				<ele>300.000000</ele>
-				<time>2018-01-31T19:00:00Z</time>
+			<trkpt lat="40.000002" lon="-77.000002">
+				<ele>302.000000</ele>
+				<time>2018-01-31T19:00:20Z</time>
 			</trkpt>
 		</trkseg>
 	</trk>
