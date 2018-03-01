@@ -29,7 +29,7 @@ feature 'Importing Tracks via an Emailed GPX file', type: :feature do
     t = Track.last
 
     expect(t.user).to eq user
-    expect(t.import_fingerprint).to eq '44eeb323d0321b18480d947db9797611'
+    expect(t.import_fingerprint).to be_present
     expect(t.name).to eq 'TEST TRACK from GPX FILE'
     t.segments[0].points.each do |point|
       expect(point.latitude).to be_present
