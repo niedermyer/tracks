@@ -1,0 +1,5 @@
+development:
+  api_key: google_maps_api_key
+
+test:
+  api_key: google_maps_api_key

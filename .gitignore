@@ -19,3 +19,4 @@
 # Machine-specific values and secrets
 /config/smtp.yml
 /config/secrets.yml
+/config/google_maps.yml
