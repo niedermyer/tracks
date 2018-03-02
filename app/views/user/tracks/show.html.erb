@@ -1,9 +1,48 @@
-<div id="track-show-container" data-track-id="<%= @track.id %>" >
+<div id="track-show-container" class="sidebar-in" data-track-id="<%= @track.id %>" >
 
   <div class="track-details">
-    <h1><%= @track.name %></h1>
-    <h2>Track Points</h2>
+    <div class="heading">
+    <h1 title="<%= @track.name %>"><%= @track.name %></h1>
+
+    <table class="table table-striped table-condensed attributes-table">
+        <tbody>
+        <tr>
+          <th scope="row">Duration</th>
+          <td><%= @track.formatted_duration %></td>
+        </tr>
+        <tr>
+          <th scope="row">Started At</th>
+          <td><%= link_to l(@track.first_point.recorded_at, format: :medium),
+                          "#points/#{@track.first_point.id}",
+                          class: 'map-point',
+                          data: { id: @track.first_point.id } %></td>
+        </tr>
+        <tr>
+          <th scope="row">Ended At</th>
+          <td><%= link_to l(@track.last_point.recorded_at, format: :medium),
+                          "#points/#{@track.last_point.id}",
+                          class: 'map-point',
+                          data: { id: @track.last_point.id } %></td>
+        </tr>
+        <tr>
+          <th scope="row">Max elevation</th>
+          <td><%= link_to @track.highest_point.rounded_elevation,
+                          "#points/#{@track.highest_point.id}",
+                          class: 'map-point',
+                          data: {id: @track.highest_point.id } %> m</td>
+        </tr>
+        <tr>
+          <th scope="row">Min elevation</th>
+          <td><%= link_to @track.lowest_point.rounded_elevation,
+                          "#points/#{@track.lowest_point.id}",
+                          class: 'map-point',
+                          data: {id: @track.lowest_point.id } %> m</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
     <div class="points">
+      <h2>Points</h2>
       <ol>
         <% @track.points.each_with_index do |point, i| %>
           <li id="<%= dom_id point %>" class="point">
@@ -19,6 +58,9 @@
   </div>
 
   <div class="track-map">
+    <%= link_to '#toggle-track-details', class: 'toggle-track-details' do %>
+      <span class="sr-only">Toggle Track Details</span>
+    <% end %>
     <div id="g-map"></div>
   </div>
 

@@ -9,11 +9,29 @@ feature 'Tracks management', type: :feature do
   let!(:track_2) { create :track,
                           user: user,
                           name: 'Track Two',
-                          description: 'Second Route to Work' }
+                          description: 'Second Route to Work',
+                          segments: [t2_segment]}
+  let(:t2_segment) { build :track_segment,
+                           track: nil,
+                           points: [t2_point_first, t2_point_lowest, t2_point_highest, t2_point_last]}
 
+  let(:t2_point_first)   { build :track_point,
+                                 track_segment: nil,
+                                 elevation: BigDecimal('200'),
+                                 recorded_at: now - 3.hour }
+  let(:t2_point_lowest)  { build :track_point,
+                                 track_segment: nil,
+                                 elevation: BigDecimal('100'),
+                                 recorded_at: now - 2.hour }
+  let(:t2_point_highest) { build :track_point,
+                                 track_segment: nil,
+                                 elevation: BigDecimal('300'),
+                                 recorded_at: now - 1.hour }
+  let(:t2_point_last)    { build :track_point,
+                                 track_segment: nil,
+                                 elevation: BigDecimal('200'),
+                                 recorded_at: now - 30.minutes }
   let(:now) { Time.zone.now }
-  let(:yesterday) { now - 1.day }
-
 
   before do
     sign_in_as user
@@ -34,7 +52,7 @@ feature 'Tracks management', type: :feature do
     end
   end
 
-  scenario 'see one track', js: true do
+  scenario 'see a track', js: true do
     within dom_id_selector(track_2) do
       click_link 'Track Two'
     end
@@ -46,6 +64,14 @@ feature 'Tracks management', type: :feature do
     sleep(0.1) until page.evaluate_script('$.active') == 0
     sleep 1
     expect(page).to have_css '#g-map .gm-style'
+
+    within '.track-details' do
+      expect(page).to have_content '2:30:00'
+      expect(page).to have_link I18n.l(t2_point_first.recorded_at, format: :medium)
+      expect(page).to have_link I18n.l(t2_point_last.recorded_at, format: :medium)
+      expect(page).to have_link t2_point_lowest.rounded_elevation
+      expect(page).to have_link t2_point_highest.rounded_elevation
+    end
 
     first_point = track_2.points.first
     within dom_id_selector(first_point) do

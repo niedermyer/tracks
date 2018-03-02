@@ -48,4 +48,60 @@ describe Track, type: :model do
       expect(track.polyline).to eq 'encoded polyline'
     end
   end
+
+  describe 'basic stats' do
+    let!(:track) { create :track, segments: [segment]}
+    let(:segment) { build :track_segment,
+                          track: nil,
+                          points: [first, lowest, highest, last]}
+
+    let(:first)   { build :track_point,
+                          track_segment: nil,
+                          elevation: BigDecimal('200'),
+                          recorded_at: now - 27.hours }
+    let(:lowest)  { build :track_point,
+                          track_segment: nil,
+                          elevation: BigDecimal('100'),
+                          recorded_at: now - 2.hour }
+    let(:highest) { build :track_point,
+                          track_segment: nil,
+                          elevation: BigDecimal('300'),
+                          recorded_at: now - 1.hour }
+    let(:last)     { build :track_point,
+                           track_segment: nil,
+                           elevation: BigDecimal('200'),
+                           recorded_at: now - 30.minutes }
+    let(:now) { Time.zone.now }
+
+    describe '#duration' do
+      subject { track.duration }
+      it { is_expected.to eq (last.recorded_at - first.recorded_at) }
+    end
+
+    describe '#formatted_duration' do
+      # TODO: Test more contexts for this method
+      subject { track.formatted_duration }
+      it { is_expected.to eq '1 day 2:30:00' }
+    end
+
+    describe '#first_point' do
+      subject { track.first_point }
+      it { is_expected.to eq first }
+    end
+
+    describe '#last_point' do
+      subject { track.last_point }
+      it { is_expected.to eq last }
+    end
+
+    describe '#highest_point' do
+      subject { track.highest_point }
+      it { is_expected.to eq highest }
+    end
+
+    describe '#lowest_point' do
+      subject { track.lowest_point }
+      it { is_expected.to eq lowest }
+    end
+  end
 end

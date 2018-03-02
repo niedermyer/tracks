@@ -125,30 +125,55 @@ body.tracks.show {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0;
+    left: -320px;
+    overflow: scroll;
     width: 320px;
-    padding: 0 15px;
-    max-width: 85%;
-    background-color: rgba(255,255,255,0.94);
-    transition: left 0.25s ease-in-out;
+    padding: 0 15px 15px;
+    background-color: rgba(255,255,255,0.9);
+    transition: all 0.15s ease-in-out;
+    border-right: 1px solid $gray-lighter;
 
-    h1 {
-      font-size: $font-size-base-20px;
+    .attributes-table {
+      font-size: 12px;
+
+      td, th {
+        padding: 4px 8px;
+      }
+
+      th {
+        width: 98px;
+      }
     }
 
     h2 {
       font-size: $font-size-base-16px;
     }
 
-    .points {
-      height: 600px;
-      position: relative;
-      bottom: 0;
-      overflow: auto;
+    .heading {
+      h1 {
+        font-size: $font-size-base-20px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
 
-      .point {
-        .date {
-          color: $gray-lighter;
+    .points {
+      ol {
+        position: absolute;
+        background-color: rgba(255,255,255,0.5);
+        top: 238px;
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+        margin: 0;
+        border: 1px solid $gray-lightest;
+        overflow: scroll;
+
+        .point {
+          .date {
+            color: $gray-lighter;
+          }
         }
       }
     }
@@ -160,8 +185,63 @@ body.tracks.show {
       position: absolute;
       top: 0;
       bottom: 0;
-      left: 320px;
+      left: 0;
       right: 0;
+      transition: all 0.15s ease-in-out;
+    }
+  }
+
+  .toggle-track-details {
+    position: absolute;
+    height: 60px;
+    width: 28px;
+    top: 5px;
+    left: -1px;
+    z-index: 100;
+    background: white;
+    font-size: 32px;
+    display: block;
+    text-align: center;
+    line-height: 1;
+    border: 1px solid $gray-lighter;
+    border-radius: 0 4px 4px 0;
+    padding: 10px 8px 20px 5px;
+    border-left: 0;
+    transition: all 0.15s ease-in-out;
+
+    &:before {
+      content: '»';
+      position: absolute;
+      display: block;
+      width: 26px;
+      left: 0;
+      top: 10px;
+
+    }
+
+    &:hover, &:focus {
+      text-decoration: none;
+      background-color: $off-white;
+    }
+  }
+
+  &.sidebar-in {
+    .track-details {
+      left: 0px;
+    }
+
+    .track-map {
+      #g-map {
+        left: 320px;
+      }
+    }
+
+    .toggle-track-details {
+      left: 319px;
+
+      &:before {
+        content: '«';
+      }
     }
   }
 }
@@ -169,15 +249,32 @@ body.tracks.show {
 
 @media screen and (max-width: 768px) {
   #track-show-container {
-
     .track-details {
-      left: -320px;
+      left: -280px;
+      width: 280px;
+      padding: 0 10px 10px;
       bottom: 30px;
     }
 
     .track-map {
       #g-map {
         left: 0;
+      }
+    }
+
+    &.sidebar-in {
+      .track-details {
+        bottom: 30px;
+      }
+
+      .track-map {
+        #g-map {
+          left: 0;
+        }
+      }
+
+      .toggle-track-details {
+        left: 279px;
       }
     }
   }
